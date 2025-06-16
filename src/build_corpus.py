@@ -1,0 +1,52 @@
+# src/build_corpus.py
+
+import json
+import os
+import re
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+def clean_text(text):
+    text = text.lower()
+    text = re.sub(r'[^\w\s]', ' ', text)
+    return text
+
+def load_commit_corpus(filepath):
+    with open(filepath, 'r', encoding='utf-8') as f:
+        commits = json.load(f)
+
+    documents = []
+    ids = []
+
+    for commit in commits:
+        # message + hunk patch 全体を1つの document にする
+        full_text = commit['message']
+        for diff in commit['diffs']:
+            full_text += ' ' + diff['patch']
+        full_text = clean_text(full_text)
+
+        documents.append(full_text)
+        ids.append(commit['hash'])
+
+    return ids, documents
+
+def build_tfidf_matrix(documents):
+    vectorizer = TfidfVectorizer(stop_words='english', max_features=10000)
+    tfidf_matrix = vectorizer.fit_transform(documents)
+    return tfidf_matrix, vectorizer
+
+if __name__ == "__main__":
+    input_file = "data/commits.json"
+    output_matrix = "data/tfidf.npz"
+    output_ids = "data/commit_ids.json"
+
+    ids, docs = load_commit_corpus(input_file)
+    tfidf_matrix, vectorizer = build_tfidf_matrix(docs)
+
+    # 保存
+    from scipy.sparse import save_npz
+    save_npz(output_matrix, tfidf_matrix)
+
+    with open(output_ids, 'w') as f:
+        json.dump(ids, f)
+
+    print(f"TF-IDF matrix saved to {output_matrix}")
