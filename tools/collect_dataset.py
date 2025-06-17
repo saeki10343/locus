@@ -17,10 +17,13 @@ def fetch_bug_report(bug_id: str) -> Dict:
     soup = BeautifulSoup(res.text, "html.parser")
     summary = soup.find("span", id="short_desc_nonedit_display")
     description = soup.find("pre", class_="bz_comment_text")
+    time_el = soup.find("span", class_="bz_comment_time")
+    created = time_el.text.strip() if time_el else None
     return {
         "id": f"BUG-{bug_id}",
         "summary": summary.text.strip() if summary else "",
         "description": description.text.strip() if description else "",
+        "date": created,
     }
 
 
@@ -30,6 +33,8 @@ def scan_repository(repo_path: str) -> Dict[str, List[str]]:
     bug_map: Dict[str, List[str]] = {}
     pattern = re.compile(r"bug\s*(\d{3,6})", re.IGNORECASE)
     for commit in tqdm(repo.iter_commits("main")):
+        if any("/test/" in p.lower() for p in commit.stats.files):
+            continue
         matches = pattern.findall(commit.message)
         for bid in matches:
             bug_map.setdefault(bid, []).append(commit.hexsha)
@@ -44,7 +49,7 @@ def main():
     for bug_id, commits in tqdm(bug_map.items()):
         try:
             br = fetch_bug_report(bug_id)
-            br["fixes"] = [c[:7] for c in commits]
+            br["fixes"] = commits
             reports.append(br)
         except Exception as e:
             print(f"Failed to fetch BUG-{bug_id}: {e}")

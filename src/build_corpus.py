@@ -6,6 +6,9 @@ import re
 from sklearn.feature_extraction.text import TfidfVectorizer
 from diff_features import extract_features_from_patch
 
+# Weight for code element tokens as described in the Locus paper
+CE_WEIGHT = int(os.environ.get("CE_WEIGHT", "5"))
+
 def clean_text(text):
     text = text.lower()
     text = re.sub(r'[^\w\s]', ' ', text)
@@ -24,8 +27,11 @@ def load_commit_corpus(filepath):
         for diff in commit['diffs']:
             patch = diff['patch']
             full_text += ' ' + patch
-            # add extracted features from the patch
-            full_text += ' ' + extract_features_from_patch(patch)
+            # add extracted features from the patch with weighting
+            features = extract_features_from_patch(patch)
+            if features:
+                weighted = (' ' + features) * CE_WEIGHT
+                full_text += weighted
         full_text = clean_text(full_text)
 
         documents.append(full_text)

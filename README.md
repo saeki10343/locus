@@ -4,26 +4,23 @@ This project aims to reproduce the evaluation of **Locus: Locating Bugs from Sof
 
 ## Preparing the Dataset
 
-<<<<<<< 5apdfp-codex/再現度を高めるための改善
 1. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
-=======
->>>>>>> main
-1. Clone the full Tomcat repository:
+2. Clone the full Tomcat repository:
    ```bash
    git clone https://github.com/apache/tomcat.git tomcat
    ```
 
-2. Extract commit information (message, diffs) from the repository:
+3. Extract commit information (message, diffs) from the repository. The script supports filtering by date and skipping test files:
    ```bash
-   python src/extract_commits.py tomcat data/commits.json --branch main
+   python src/extract_commits.py tomcat data/commits.json --branch main --since 2013-01-01 --until 2014-12-31
    ```
    Remove `--max-count` to process the entire history or set a limit if needed.
 
-3. Generate bug reports linked to commits:
+4. Generate bug reports linked to commits:
    ```bash
    python tools/collect_dataset.py
    ```
@@ -36,9 +33,8 @@ python src/build_corpus.py
 python src/evaluate_ranking.py
 ```
 
-<<<<<<< 5apdfp-codex/再現度を高めるための改善
+The commit corpus can emphasise code element tokens by setting the `CE_WEIGHT` environment variable (default `5`).
+
 If you regenerate bug reports or commit data, make sure to rebuild the TF-IDF matrix before running `evaluate_ranking.py` so that the indices stay consistent.
 
-=======
->>>>>>> main
 Using the complete dataset and richer features should yield results closer to those reported in the Locus paper.
