@@ -1,10 +1,10 @@
+# python src/extract_commits.py ../tomcat data/commits.json --branch main
 import os
 import json
 import re
 from argparse import ArgumentParser
 from git import Repo
 from tqdm import tqdm
-
 
 def extract_commits(repo_path: str, branch: str = "main", max_count=None):
     repo = Repo(repo_path)
@@ -14,15 +14,28 @@ def extract_commits(repo_path: str, branch: str = "main", max_count=None):
         if not commit.parents:
             continue
         diffs = commit.diff(commit.parents[0], create_patch=True)
+
         diff_data = []
+        file_paths = []
+
         for diff in diffs:
             if diff.new_file or diff.deleted_file:
                 continue
+            if not diff.b_path:
+                continue
+            file_paths.append(diff.b_path)
             try:
                 patch = diff.diff.decode("utf-8", errors="ignore")
                 diff_data.append({"file": diff.b_path, "patch": patch})
             except Exception:
                 continue
+
+        if file_paths and all(
+            f.startswith(("test", "tests", "docs", "webapps/docs"))
+            for f in file_paths
+        ):
+            continue
+
         commits_data.append({
             "hash": commit.hexsha,
             "message": commit.message.strip(),
@@ -31,7 +44,6 @@ def extract_commits(repo_path: str, branch: str = "main", max_count=None):
             "diffs": diff_data,
         })
     return commits_data
-
 
 def main():
     ap = ArgumentParser(description="Extract commit data from a git repository")
@@ -46,7 +58,6 @@ def main():
     with open(args.output, "w", encoding="utf-8") as f:
         json.dump(commits, f, ensure_ascii=False, indent=2)
     print(f"Saved {len(commits)} commits to {args.output}")
-
 
 if __name__ == "__main__":
     main()
