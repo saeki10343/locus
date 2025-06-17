@@ -77,7 +77,7 @@ if __name__ == "__main__":
 
     # vectorizer再構築
     from src.build_corpus import load_commit_corpus, build_tfidf_matrix
-    _, docs = load_commit_corpus("data/commits.json")
+    _, docs, _ = load_commit_corpus("data/commits.json")
     _, vectorizer = build_tfidf_matrix(docs)
 
     for bug_id, bug_text in bug_reports:

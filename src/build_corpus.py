@@ -29,6 +29,7 @@ def load_commit_corpus(filepath):
 
     documents = []
     ids = []
+    dates = []
 
     for commit in commits:
         # message + hunk patch 全体を1つの document にする
@@ -42,8 +43,9 @@ def load_commit_corpus(filepath):
 
         documents.append(full_text)
         ids.append(commit['hash'])
+        dates.append(commit.get('date'))
 
-    return ids, documents
+    return ids, documents, dates
 
 def build_tfidf_matrix(documents):
     vectorizer = TfidfVectorizer(stop_words='english', max_features=10000)
@@ -55,7 +57,7 @@ if __name__ == "__main__":
     output_matrix = "data/tfidf.npz"
     output_ids = "data/commit_ids.json"
 
-    ids, docs = load_commit_corpus(input_file)
+    ids, docs, dates = load_commit_corpus(input_file)
     tfidf_matrix, vectorizer = build_tfidf_matrix(docs)
 
     # 保存
@@ -64,5 +66,8 @@ if __name__ == "__main__":
 
     with open(output_ids, 'w') as f:
         json.dump(ids, f)
+
+    with open("data/commit_dates.json", 'w') as f:
+        json.dump(dates, f)
 
     print(f"TF-IDF matrix saved to {output_matrix}")
