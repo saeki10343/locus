@@ -5,7 +5,7 @@ FUNCTION_REGEX = re.compile(r"\b([A-Za-z_][A-Za-z0-9_]*)\s*\(")
 SYNTAX_KEYWORDS = ["if", "for", "while", "switch", "case", "try", "catch"]
 
 
-def extract_features_from_patch(patch: str) -> str:
+def extract_features_from_patch(patch: str, weight: int = 1) -> str:
     """Extract simple features from a diff patch.
 
     Parameters
@@ -35,4 +35,7 @@ def extract_features_from_patch(patch: str) -> str:
             context = line.strip("@ ")
             func_names = re.findall(r"[A-Za-z_][A-Za-z0-9_]*", context)
             tokens.extend(func_names)
-    return " ".join(tokens)
+    weighted = []
+    for tok in tokens:
+        weighted.extend([tok] * weight)
+    return " ".join(weighted)

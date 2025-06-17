@@ -12,6 +12,37 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from build_corpus import load_commit_corpus, build_tfidf_matrix
 
+CODE_TOKEN_RE = re.compile(r'[A-Za-z_]*[A-Z_][A-Za-z0-9_]*')
+
+def emphasize_code_tokens(text: str, weight: int = 5) -> str:
+    tokens = text.split()
+    out = []
+    for t in tokens:
+        if CODE_TOKEN_RE.search(t):
+            out.extend([t] * weight)
+        else:
+            out.append(t)
+    return ' '.join(out)
+
+def load_commit_boost(path: str, beta: float = 0.1):
+    with open(path, 'r') as f:
+        feats = json.load(f)
+
+    file_freq = {}
+    for item in feats:
+        for fp in item.get('files', []):
+            file_freq[fp] = file_freq.get(fp, 0) + 1
+
+    commit_boost = {}
+    for item in feats:
+        freq = sum(file_freq.get(fp, 0) for fp in item.get('files', []))
+        commit_boost[item['commit_id']] = freq
+
+    max_freq = max(commit_boost.values()) if commit_boost else 1
+    for cid in commit_boost:
+        commit_boost[cid] = 1.0 + beta * (commit_boost[cid] / max_freq)
+    return commit_boost
+
 def clean_text(text):
     text = text.lower()
     text = re.sub(r'[^\w\s]', ' ', text)
@@ -20,11 +51,13 @@ def clean_text(text):
 def load_bug_reports(path):
     with open(path, 'r', encoding='utf-8') as f:
         bugs = json.load(f)
-    return [(bug['id'], clean_text(bug['summary'] + ' ' + bug.get('description', ''))) for bug in bugs]
+    return [(bug['id'], emphasize_code_tokens(clean_text(bug['summary'] + ' ' + bug.get('description', '')))) for bug in bugs]
 
-def rank_commits_for_bug(bug_text, vectorizer, tfidf_matrix, commit_ids, top_k=10):
+def rank_commits_for_bug(bug_text, vectorizer, tfidf_matrix, commit_ids, commit_boost, top_k=10):
     query_vector = vectorizer.transform([bug_text])
     similarities = cosine_similarity(query_vector, tfidf_matrix).flatten()
+    boost = np.array([commit_boost.get(cid, 1.0) for cid in commit_ids])
+    similarities = similarities * boost
     ranked_indices = np.argsort(similarities)[::-1][:top_k]
 
     return [(commit_ids[i], similarities[i]) for i in ranked_indices]
@@ -40,13 +73,15 @@ if __name__ == "__main__":
     with open(COMMIT_IDS_FILE, 'r') as f:
         commit_ids = json.load(f)
 
+    commit_boost = load_commit_boost("data/commit_features.json")
+
     # vectorizer再構築
     from src.build_corpus import load_commit_corpus, build_tfidf_matrix
     _, docs = load_commit_corpus("data/commits.json")
     _, vectorizer = build_tfidf_matrix(docs)
 
     for bug_id, bug_text in bug_reports:
-        top_results = rank_commits_for_bug(bug_text, vectorizer, tfidf_matrix, commit_ids)
+        top_results = rank_commits_for_bug(bug_text, vectorizer, tfidf_matrix, commit_ids, commit_boost)
         print(f"\nBug ID: {bug_id}")
         for cid, score in top_results:
             print(f"  {cid[:8]}...  Score: {score:.4f}")
