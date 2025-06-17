@@ -1,0 +1,199 @@
+[
+  {
+    "id": "BUG-69690",
+    "summary": "allowsto plug in some ProgressListener on multipart file upload processing",
+    "description": "On \n\nhttps://bz.apache.org/bugzilla/show_bug.cgi?id=69689\n\nWas stated that current implementation of multipart processing is correct and matching specification. I still do not see how other frameworks could in a bullets prof way get access to the getInputStream before anyone else calls getParameter.\n\nI also see that FileUpload class allows to plug some ProgressListener... But there is no way to plug such a listener in requests.",
+    "fixes": [
+      "ba6cd84",
+      "d42dd73"
+    ]
+  },
+  {
+    "id": "BUG-69699",
+    "summary": "Rewrite redirection forget SessionID path parameter",
+    "description": "Given rewrite rule: \n- RewriteRule ^/b(.*) /a$1 [R]\n\nfor original request \"/b;k=1;jsessionid=a1b2c3d4e5/001\", receive 302 to \"/a/001\".\n\nSession ID part disappear in redirect target URL.",
+    "fixes": [
+      "ba6cd84",
+      "fd82e6c"
+    ]
+  },
+  {
+    "id": "BUG-69706",
+    "summary": "Session persistence broken when persistAuthentication is turned on in tomcat 11.0.7",
+    "description": "Session serialization fails between restarts of tomcat, when both of these conditions are met:\n\t- persistAuthentication is turned on in context.xml (by line '<Manager pathname=\"SESSIONS.ser\" persistAuthentication=\"true\"/>' ) \n\t- Active _unauthenticated_ user sessions exist\n\nFollowing the related stack trace from \"catalina.${date}.log\":\n\n\tjava.io.NotSerializableException: java.util.OptionalInt\n\t\tat java.base/java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1200)\n\t\tat java.base/java.io.ObjectOutputStream.defaultWriteFields(ObjectOutputStream.java:1585)\n\t\tat java.base/java.io.ObjectOutputStream.writeSerialData(ObjectOutputStream.java:1542)\n\t\tat java.base/java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1451)\n\t\tat java.base/java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1194)\n\t\tat java.base/java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:358)\n\t\tat org.apache.catalina.session.StandardSession.doWriteObject(StandardSession.java:1275)\n\t\tat org.apache.catalina.session.StandardSession.writeObjectData(StandardSession.java:837)\n\t\tat org.apache.catalina.session.StandardManager.unload(StandardManager.java:218)\n\t\tat org.apache.catalina.session.StandardManager.stopInternal(StandardManager.java:285)\n\t\tat org.apache.catalina.util.LifecycleBase.stop(LifecycleBase.java:235)\n\t\tat org.apache.catalina.core.StandardContext.stopInternal(StandardContext.java:4660)\n\t\tat org.apache.catalina.util.LifecycleBase.stop(LifecycleBase.java:235)\n\t\tat org.apache.catalina.core.ContainerBase.removeChild(ContainerBase.java:626)\n\t\tat org.apache.catalina.startup.HostConfig.undeploy(HostConfig.java:1439)\n\t\tat org.apache.catalina.startup.HostConfig.checkResources(HostConfig.java:1348)\n\t\tat org.apache.catalina.startup.HostConfig.check(HostConfig.java:1617)\n\t\tat org.apache.catalina.startup.HostConfig.lifecycleEvent(HostConfig.java:263)\n\t\tat org.apache.catalina.util.LifecycleBase.fireLifecycleEvent(LifecycleBase.java:109)\n\t\tat org.apache.catalina.core.ContainerBase.backgroundProcess(ContainerBase.java:940)\n\t\tat org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1139)\n\t\tat org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.processChildren(ContainerBase.java:1143)\n\t\tat org.apache.catalina.core.ContainerBase$ContainerBackgroundProcessor.run(ContainerBase.java:1121)\n\t\tat java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572)\n\t\tat java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:358)\n\t\tat java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305)\n\t\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)\n\t\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)\n\t\tat org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:59)\n\t\tat java.base/java.lang.Thread.run(Thread.java:1583)\n\nNote that org.apache.catalina.authenticator.SavedRequest does implement java.io.Serializable, while its member variable originalMaxInactiveInterval of type java.util.OptionalInt does _not_.\nThis has been changed at some point between tomcat version 11.0.1 and 11.0.7. (Version 11.0.0 did not have this issue.)",
+    "fixes": [
+      "ba6cd84",
+      "d83557f",
+      "9cfb479"
+    ]
+  },
+  {
+    "id": "BUG-69696",
+    "summary": "Unexpected jsp page result if inner class changed to compilation error",
+    "description": "If a valid jsp file with inner class visited once and then the jsp inner class source changed to invalid, its inner class (.class) retained in working directory. Later, the request result is unpredictable.\n\n1. source code of welcome.jsp\n```java\n<%\nclass Person {\n  int getAge() {\n    return 30;\n  }\n}\n%>\n<html>\n        <body>\n                Welcome! Age:<%=new Person().getAge()%>\n        </body>\n</html>\n```\n2. curl with expected result.\n3. change the source code to:\n```java\n<%\nclass Person {\n  int getAge() {\n    return 30a; // obviously failed to compile.\n  }\n}\n%>\n<html>\n        <body>\n                Welcome! Age:<%=new Person().getAge()%>\n        </body>\n</html>\n```\n4. curl welcome.jsp, got 500 as expected!\n5. curl welcome.jsp again quickly, got 200 response same with step 2.",
+    "fixes": [
+      "ba6cd84",
+      "3c7e0e5"
+    ]
+  },
+  {
+    "id": "BUG-69694",
+    "summary": "Manager Deploy does not check return value of war copy",
+    "description": "ManagerServlet.deploy does not check the return value of ExpandWar.copy which returns false on Exception.\n\nThe return value from manager\\text\\deploy indicates that the deploy succeeded which is not the case.\n\nI checked the code in the Tomcat 9 branch and it's not fixed yet.\n\nHere's the stack trace which is only logged.\n\n14-May-2025 12:15:09.053 INFO [ajp-nio-127.0.0.1-8009-exec-8] org.apache.catalina.core.ApplicationContext.log Manager: Uploading WAR file to D:\\Tomcat\\work\\manager\\20250514_1445\\ROOT.war\n14-May-2025 12:15:13.375 SEVERE [ajp-nio-127.0.0.1-8009-exec-8] org.apache.catalina.startup.ExpandWar.copy Error copying [D:\\Tomcat\\work\\manager\\20250514_1445\\ROOT.war] to [D:\\Tomcat\\webapps\\ROOT.war]\n\tjava.io.FileNotFoundException: D:\\Tomcat\\webapps\\ROOT.war (Access denied)\n\t\tat java.base/java.io.FileOutputStream.open0(Native Method)\n\t\tat java.base/java.io.FileOutputStream.open(FileOutputStream.java:289)\n\t\tat java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:230)\n\t\tat java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:179)\n\t\tat org.apache.catalina.startup.ExpandWar.copy(ExpandWar.java:256)\n\t\tat org.apache.catalina.manager.ManagerServlet.deploy(ManagerServlet.java:763)\n\t\tat org.apache.catalina.manager.ManagerServlet.doPut(ManagerServlet.java:398)\n\t\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:558)\n\t\tat javax.servlet.http.HttpServlet.service(HttpServlet.java:623)\n\t\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:199)\n\t\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)\n\t\tat org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)\n\t\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)\n\t\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)\n\t\tat org.apache.catalina.filters.HttpHeaderSecurityFilter.doFilter(HttpHeaderSecurityFilter.java:129)\n\t\tat org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:168)\n\t\tat org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:144)\n\t\tat org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:168)\n\t\tat org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)\n\t\tat org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:597)\n\t\tat org.apache.catalina.valves.RequestFilterValve.process(RequestFilterValve.java:355)\n\t\tat org.apache.catalina.valves.RemoteAddrValve.invoke(RemoteAddrValve.java:54)\n\t\tat org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:130)\n\t\tat org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)\n\t\tat org.apache.catalina.valves.AbstractAccessLogValve.invoke(AbstractAccessLogValve.java:660)\n\t\tat org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)\n\t\tat org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346)\n\t\tat org.apache.coyote.ajp.AjpProcessor.service(AjpProcessor.java:424)\n\t\tat org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)\n\t\tat org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:937)\n\t\tat org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1793)\n\t\tat org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)\n\t\tat org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)\n\t\tat org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)\n\t\tat org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)\n\t\tat java.base/java.lang.Thread.run(Thread.java:1583)",
+    "fixes": [
+      "ba6cd84",
+      "ea0cdb0"
+    ]
+  },
+  {
+    "id": "BUG-69588",
+    "summary": "Allow linking subresources independent of <Resources> in context.xml",
+    "description": "Coming from https://lists.apache.org/thread/ysnqs6665wccfosl1kqqndfy2wjd95ll\n\nIt would be helpful if the following would be possible:\n> <Resources>\n>   <PostResources base=\"/foo/prod\" className=\"org.apache.catalina.webresources.DirResourceSet\"\n>     webAppMount=\"/dav\" readOnly=\"true\" allowLinking=\"true\" />\n> ...\n> </Resources>\n\nThis shouldn't be necessarily limited to PostResources, but to any resource set which can be linked.\nMoreover, one shouldn't be forced to enable allowLinking on <Resources> level.",
+    "fixes": [
+      "fa2cda8",
+      "1f1dcfc"
+    ]
+  },
+  {
+    "id": "BUG-69633",
+    "summary": "Filters mapped to \"\" are not applied to empty string (\"\") special URL pattern",
+    "description": "I try to make Pax Web 10 based on Tomcat 11 (and Jetty 12 and Undertow 2.3) compliant with OSGi CMPN TCK.\n\nOne of the failing tests is about applying filters mapped to \"\" when requesting \"root context\" URI (like http://localhost:8080/).\n\nhttps://jakarta.ee/specifications/servlet/6.1/jakarta-servlet-spec-6.1#specification-of-mappings mentions this \"special\" pattern:\n\n> The empty string (\"\") is a special URL\n> pattern that exactly maps to the application\u2019s\n> context root, i.e., requests of the form\n> http://host:port/<context-root> or\n> http://host:port/<context-root>/. \n> In this case the path info is \"/\" and the servlet\n> path is empty string (\"\").\n\nNowhere in the Servlet API specification is stated that this mapping doesn't related to Filter mappings too.\n\nHowever in Tomcat `org.apache.catalina.util.FilterUtil#matchFiltersURL(java.lang.String, java.lang.String)`\n\nwe have:\n\n// Case 4 - \"Default\" Match\nreturn false; // NOTE - Not relevant for selecting filters\n\nfor testPath=\"\" and requestPath=\"/\"\n\nI think this special condition should be added...",
+    "fixes": [
+      "fa2cda8",
+      "1f1dcfc",
+      "a05bb23"
+    ]
+  },
+  {
+    "id": "BUG-69643",
+    "summary": "DirResourceSet class retrieves canonical path too frequently - follow up on bug 68054",
+    "description": "Created attachment 40015 [details]\nOptimization proposal\n\nWhen profiling start phase of our webapps, found a lot of time is spent in calls to method getCanonicalPath() in DirResourceSet.\n\nTested a fix by keeping value for canonical path of parent folder when iterating over its children. I get about 35% improvement on my side, going from above 3 minutes to below 2 minutes. (test done with large webapp folder content : 6k folders and almost 100k files)\n\nCode modification I tested is attached.",
+    "fixes": [
+      "fa2cda8",
+      "490c587",
+      "a05bb23",
+      "7bc405e"
+    ]
+  },
+  {
+    "id": "BUG-69662",
+    "summary": "NamingContext does not include name when throwing NamingException",
+    "description": "Tomcat threw an exception attempting to look up a JNDI name but did not include the name it couldn't find:\n\n[SEVERE] 2025-04-29 19:56:41.886 [org.apache.catalina.mbeans.GlobalResourcesLifecycleListener] Exception processing global JNDI Resources\njavax.naming.NamingException: Unexpected exception resolving reference\n\u2003\u2003at org.apache.naming.NamingContext.lookup(NamingContext.java:567)\n\u2003\u2003at org.apache.naming.NamingContext.lookup(NamingContext.java:148)\n\u2003\u2003at org.apache.naming.NamingContextBindingsEnumeration.nextElementInternal(NamingContextBindingsEnumeration.java:106)\n\u2003\u2003at org.apache.naming.NamingContextBindingsEnumeration.next(NamingContextBindingsEnumeration.java:66)\n\u2003\u2003at org.apache.naming.NamingContextBindingsEnumeration.next(NamingContextBindingsEnumeration.java:32)\n\u2003\u2003at org.apache.catalina.mbeans.GlobalResourcesLifecycleListener.createMBeans(GlobalResourcesLifecycleListener.java:130)\n\u2003\u2003at org.apache.catalina.mbeans.GlobalResourcesLifecycleListener.createMBeans(GlobalResourcesLifecycleListener.java:137)\n\u2003\u2003at org.apache.catalina.mbeans.GlobalResourcesLifecycleListener.createMBeans(GlobalResourcesLifecycleListener.java:106)\n\u2003\u2003at org.apache.catalina.mbeans.GlobalResourcesLifecycleListener.lifecycleEvent(GlobalResourcesLifecycleListener.java:81)\n\u2003\u2003at org.apache.catalina.util.LifecycleBase.fireLifecycleEvent(LifecycleBase.java:109)\n\u2003\u2003at org.apache.catalina.util.LifecycleBase.setStateInternal(LifecycleBase.java:389)\n\u2003\u2003at org.apache.catalina.util.LifecycleBase.setState(LifecycleBase.java:336)\n\u2003\u2003at org.apache.catalina.core.StandardServer.startInternal(StandardServer.java:858)\n\u2003\u2003at org.apache.catalina.util.LifecycleBase.start(LifecycleBase.java:164)\n\u2003\u2003at org.apache.catalina.startup.Catalina.start(Catalina.java:761)\n\u2003\u2003at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)\n\u2003\u2003at java.base/java.lang.reflect.Method.invoke(Method.java:580)\n\u2003\u2003at org.apache.catalina.startup.Bootstrap.start(Bootstrap.java:345)\n\u2003\u2003at org.apache.catalina.startup.Bootstrap.main(Bootstrap.java:473)\n\nIt would be very helpful to have the name that couldn't be found in the exception message, so the problem could be investigated.",
+    "fixes": [
+      "fa2cda8",
+      "fc38ef2",
+      "d14fbf6"
+    ]
+  },
+  {
+    "id": "BUG-69635",
+    "summary": "JSP fails to import nested enum or class",
+    "description": "This should work:\n\n\n<code>\npackage business.domain;\n\npublic class Category {\n  public enum Type { HIGH, MEDIUM, LOW }\n\n  // Workaround\n  public static Type[] getTypeValues() {\n    return Type.values();\n  }\n}\n</code>\n\nIn the JSP:\n\n\n*Attempt 1: Import the class access enum through class (statically).*\n<code>\n<%@page import=\"business.domain.Category\" %>\n\n<%-- This fails: Error: No public static field named [Type] was found on exported class [business.domain.Category]\nCategory types: ${Category.Type.values()}<br>--%>\n\n<%-- Workaround: Static method on Category --%>\nCategory types: ${Category.getTypeValues()}\n</code>\n\n\n*Attempt 2: Import enum Type directly.*\n<code>\n<%@page import=\"business.domain.Category.Type\" %>\n<%-- Type is null; no output shown --%>\nCategory types: ${Type.values()}\n</code>\n\n\n*Attempt 3: Import enum Type using nested class name like Class$NestedClass.*\n<code>\n<%@page import=\"business.domain.Category$Type\" %>\n<%-- Unable to compile class for JSP: An error occurred at line: .. import business.domain.Category$Type cannot be resolved Stacktrace:... --%>\n</code>",
+    "fixes": [
+      "fa2cda8",
+      "fa2cda8",
+      "570f451",
+      "5e1d0d7",
+      "5e1d0d7",
+      "5ca117b",
+      "91278e6"
+    ]
+  },
+  {
+    "id": "BUG-68876",
+    "summary": "serverStartup.pdf missing sources",
+    "description": "webapps/docs/architecture/startup/serverStartup.pdf seems to have been created in some UML utility by a Windows\u00ae user in Tomcat 5 times.\n\nPlease do something to update it, fix typos like \u201cWarpper\u201d, and so we can have the source code in the git repository as well, or ideally it would be built from the source code (e.g. using graphviz or something, which could be installed as build dependency in the Debian packaging).",
+    "fixes": [
+      "fa2cda8",
+      "53345a8"
+    ]
+  },
+  {
+    "id": "BUG-69600",
+    "summary": "Add ipv6 link-local and unique local addresses to the default internalProxies",
+    "description": "The RemoteIpFilter and RemoteIpValve support plenty of local addresses for IPv4 by default but for IPv6 only the localhost ::1 address is supported.\n\n1. Per rfc4193 Unique Local IPv6 Unicast Adresses and\n2. per rfc4291 section 2.5.6 Link-Local IPv6 Unicast Addresses, \n\nthe IPv6 address spaces \n1. \"fe80::/10\" and \n2. \"fc00::/7\" \n\nshould be added to the default internal proxies.",
+    "fixes": [
+      "6410157",
+      "7c4f7e1",
+      "7c4f7e1",
+      "75d3c2b"
+    ]
+  },
+  {
+    "id": "BUG-69615",
+    "summary": "Potential Regression in Tomcat 9.0.97+(Including Tomcat 10 and Tomcat 11) \u2014 NoClassDefFoundError for Dynamically Loaded Classes",
+    "description": "We would like to report a potential regression issue observed in Tomcat 9.0.97+, including Tomcat 10 and Tomcat 11, that appears to break expected behaviour regarding dynamically loaded JARs.\n\n\n## Issue Description:\n\nOur application is a WAR-based deployment running on Tomcat 11 with Java 21. The application allows importing extensions (JARs) at runtime, which are dynamically loaded using URLClassLoader.\nIn Tomcat 9.0.96 and earlier, dynamically loaded classes were immediately recognized without issues. However, starting from Tomcat 9.0.97, we encountered the following error when attempting to access classes from these dynamically loaded JARs:\n\njava.lang.NoClassDefFoundError: org/apache/logging/log4j/spi/ExtendedLogger\n\n\n## Steps to Reproduce:\n\n1. Deploy a WAR-based application on Tomcat 9.0.97+.\n2. Dynamically load a JAR (e.g. log4j-api-2.17.1.jar) using the following code:\n\n   URLClassLoader webappClassLoader = (URLClassLoader) Thread.currentThread().getContextClassLoader();\n   Method method = URLClassLoader.class.getDeclaredMethod(\"addURL\", URL.class);                                   \n   method.setAccessible(true);                                                                                      \n   method.invoke(webappClassLoader, new Object[]{jarUrl});\n\n3. Attempt to access a class from the dynamically loaded JAR, such as org.apache.logging.log4j.spi.ExtendedLogger.\n4. Observe the NoClassDefFoundError exception despite the JAR being successfully loaded.\n\n## Findings:\n\n\u2022 Debugging confirmed that the JAR was successfully loaded by the classloader.\n\u2022 Classes like org.apache.logging.log4j.LogManager and org.apache.logging.log4j.Logger were accessible, but org.apache.logging.log4j.spi.ExtendedLogger still resulted in a NoClassDefFoundError.\n\u2022 Restarting Tomcat resolves the issue, confirming it\u2019s related to Tomcat's internal caching.\n\n## Root Cause Analysis:\n\nThis issue appears to be related to the notFoundClassResourceCacheSize caching mechanism introduced in Tomcat 9.0.97.\n\u2022 If a class is requested before its JAR is loaded, Tomcat caches it as \"not found.\"\n\u2022 Even after dynamically loading the JAR, Tomcat does not reattempt the class lookup, causing a NoClassDefFoundError.\n\u2022 This behaviour differs from Tomcat 9.0.96 and earlier, where dynamically loaded JARs were recognized immediately without requiring a server restart.\n\n## Impact:\n\nThis caching behaviour is problematic for applications that rely on runtime JAR loading and introduces unexpected behaviour that breaks compatibility with previous Tomcat versions. Given that Tomcat has historically maintained backward compatibility, this change could be considered a regression.\n\n## Request:\n\nWe believe this behaviour deviates from expected functionality and may impact other applications that rely on dynamic class loading. We kindly request that the Tomcat team review this behaviour and consider addressing it in future releases to restore compatibility.",
+    "fixes": [
+      "6410157",
+      "7c4f7e1",
+      "2bc4d43"
+    ]
+  },
+  {
+    "id": "BUG-69623",
+    "summary": "regression between 9.0.27 and 9.0.29: UnknownServiceException: no content-type",
+    "description": "something seems to have changed in the classloader available to webapps just after version 9.0.27\n\nWe used to load files from WEB-INF/classes/fileName.mdd (i.e. a custom extension) using:\n\nthis.getClass().getClassLoader().getResource(filePath).getContent();\n\nThis code used to work in versions <= 9.0.27 but it fails in 9.0.29 and later (and a few late 8 versions)\n\njava.net.UnknownServiceException: no content-type\n        at java.net.URLConnection.getContentHandler(URLConnection.java:1241)\n        at java.net.URLConnection.getContent(URLConnection.java:740)\n        at java.net.URL.getContent(URL.java:1081)\n\nTested this regression with a number of Java runtimes from versions 8 to 23. \n\nChecked the Tomcat changelog and I cannot find any change at 9.0.28 or 9.0.29  that looks related to the classloader. So I wonder what Tomcat change could have lead to this, and whether the change is intended.",
+    "fixes": [
+      "6410157",
+      "6cffe2a"
+    ]
+  },
+  {
+    "id": "BUG-69634",
+    "summary": "NullPointerException in JsonErrorReportValve",
+    "description": "When Throwable and response message passed to org.apache.catalina.valves.JsonErrorReportValve.report(Request, Response, Throwable) are null, the implementation thows a NullPointerException.\n\nhttps://github.com/apache/tomcat/blob/791c9c3c95206e6c08e5b3fbea23e97c0e87463c/java/org/apache/catalina/valves/JsonErrorReportValve.java#L73\nhttps://github.com/apache/tomcat/blob/791c9c3c95206e6c08e5b3fbea23e97c0e87463c/java/org/apache/catalina/valves/JsonErrorReportValve.java#L86",
+    "fixes": [
+      "6410157",
+      "06c7046",
+      "4a1029a"
+    ]
+  },
+  {
+    "id": "BUG-69607",
+    "summary": "MD5 algorithm insecure usage in tomcat-util",
+    "description": "We have identified that tomcat-util is using MD5 algorithm which is not considered secure in FIPS-140.3 mode. In FIPS mode server startup fails because of MD5 usage in tomcat-util. \n\nThe issue arises because tomcat-util uses the MD5 algorithm for initialization in the ConcurrentMessageDigest class, located in the tomcat/util/security folder.\nThis is located in static block during initialization and cannot be circumvented. \n\nCan we submit a patch to remove initialization of MD5 algorithm from static block of tomcat-util? SHA-1 can be used which is more secure algorithm and is compatible with FIPS-140.3 mode.",
+    "fixes": [
+      "6410157",
+      "0092ff0",
+      "3b616b2"
+    ]
+  },
+  {
+    "id": "BUG-69614",
+    "summary": "Ill formatted priority header results in frozen HTTP/2 connection",
+    "description": "Created attachment 40007 [details]\nSimple java reproducer\n\nWe recently began to receive ill-formatted priority HTTP headers with a colon instead of an equal and it broke our production environment.\n\nThe bug can be reproduced systematically following these steps:\n- start any tomcat configured with TLS (required for HTTP/2) and HTTP/2\n- open an HTTP/2 connection using a valid request\n- send a second request (on the same HTTP/2 connection) with an ill formatted `priority` header set to \"u=1:i\" (note the `:` instead of the `,`)\n\nFrom that point, all requests using the same HTTP/2 connection will time out, wether they are valid or not.\n\nNote that sending directly an invalid request will NOT end in the same behaviour, an exception will be thrown and the HTTP/2 connection will be discarded.\n\nOur workaround was to filter those ill formatted request before the hit tomcat.\n\nThe expected behaviour would be to receive a 400 http status code without affecting the other streams of the HTTP/2 connection.\n\nYou will find attached a simple java reproducer.",
+    "fixes": [
+      "6410157",
+      "b062f56",
+      "0092ff0"
+    ]
+  },
+  {
+    "id": "BUG-69602",
+    "summary": "IF-Range Check for Strong-ETags breaks download of large videos",
+    "description": "Hi guys,\n\nwe recognized a severe problem when using tomcat to deliver web based trainings housing large videos.\n\nHow to reproduce:\n\nMicrosoft Edge Browser:\n\n* request a large video\n* getting a weak ETag, which is default of the DefaultServelet\n* cancelling the streaming\n* jump to a further location in the video\n* Microsoft Edge request the same video but this time with a range request\n** if-range: W/\"696184473-1709306080000\"\n** range: bytes=89030656-696184472\n* Tomcat 9.0.99 produced a status 400 since the new if-range validation rejects weak ETags\n** cf. https://github.com/apache/tomcat/commit/99f25115e34ffaa1c7f7bf7003077b12931c5d72\n\nSo by default Tomcat 9 rejects ETags that it delivered itself.\n\nCurrent workaround: adapt Default-Servlet-Config\n\n<init-param>\n\t<param-name>useStrongETags</param-name>\n\t<param-value>true</param-value>\n</init-param>\n\nI guess this is a bad constellation:\n* either activate strong ETags by default\n** probable performance impact\n* accept weak ETags in if-ranges\n** concurs with if-range syntax\n*** https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Range\n\nThank you for helping with this issue.",
+    "fixes": [
+      "a041d8c",
+      "7a911e7",
+      "7f0df68"
+    ]
+  },
+  {
+    "id": "BUG-69575",
+    "summary": "org.apache.coyote.CompressionConfig doesn't recognize \"zstd\" compression",
+    "description": "When a response is already compressed with \"zstd\" compression algorithm,\norg.apache.coyote.CompressionConfig doesn't recognize it, applies \"gzip\" compression\nontop of \"zstd\" and then overrides \"Content-Encoding\" with \"gzip\" value.\n\nIf gzip is applied ontop of zstd, the content-encoding value should be \"zstd, gzip\"\ninstead of only gzip, but ideally if the response is already encoded with zstd, \ntomcat shouldn't apply gzip ontop of it.\n\nAt the moment if the response is already encoded and tomcat applies gzip on top of\nthe existing encoding and doesn't preserve the original encoding in the header\n\"content-encoding\" value, the browser (or another client) just decompress the response with gzip and receives data that it doesn't know how to decode because\nthe value from the header is erased from tomcat server.\n\nReference:\nhttps://github.com/apache/tomcat/blob/main/java/org/apache/coyote/CompressionConfig.java#L211 here only gzip and br are checked before encoding.\n\nhttps://github.com/apache/tomcat/blob/main/java/org/apache/coyote/CompressionConfig.java#L290C35-L290C51 here only gzip is set as content-encoding.",
+    "fixes": [
+      "a041d8c",
+      "0113948"
+    ]
+  },
+  {
+    "id": "BUG-69598",
+    "summary": "Reload service account token if changed in KubernetesMembershipProvider",
+    "description": "Created attachment 40001 [details]\nCheck sa token modify time before fetching members\n\nI our kubernates environment the service account token is changed periodically each hour causing CloudMembershipService to stop fetching members from KubernetesMembershipProvider.\n\nThere are errors in catalina log:\nServer returned HTTP response code: 401 for URL: https://A.B.C.D:443/api/v1/namespaces/589474253/pods",
+    "fixes": [
+      "a041d8c",
+      "adb9c7e"
+    ]
+  }
+]
