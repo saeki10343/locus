@@ -1,11 +1,17 @@
 # src/evaluate_ranking.py
 
 import json
+import os
+import sys
+
 import numpy as np
 from scipy.sparse import load_npz
 from sklearn.metrics.pairwise import cosine_similarity
-from src.build_corpus import load_commit_corpus, build_tfidf_matrix
 from sklearn.feature_extraction.text import TfidfVectorizer
+
+# allow running the script directly without PYTHONPATH
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from build_corpus import load_commit_corpus, build_tfidf_matrix
 
 def clean(text):
     import re
