@@ -57,14 +57,37 @@ def load_data():
         commit_ids = json.load(f)
 
     matrix = load_npz("data/tfidf.npz")
-    _, docs = load_commit_corpus("data/commits.json")
+    _, docs, dates = load_commit_corpus("data/commits.json")
     _, vectorizer = build_tfidf_matrix(docs)
 
     commit_boost = load_commit_boost("data/commit_features.json")
 
-    return bugs, commit_ids, matrix, vectorizer, commit_boost
+    with open("data/commit_features.json", "r") as f:
+        feats = json.load(f)
+        commit_files = {}
+        for item in feats:
+            cid = item["commit_id"]
+            files = item.get("files", [])
+            commit_files[cid] = files
+            commit_files[cid[:7]] = files
 
-def evaluate(bugs, commit_ids, tfidf_matrix, vectorizer, commit_boost, ks=(1, 5, 10)):
+    return bugs, commit_ids, dates, matrix, vectorizer, commit_boost, commit_files
+
+from datetime import datetime
+
+def parse_time(ts: str):
+    try:
+        return datetime.fromisoformat(ts)
+    except Exception:
+        for fmt in ("%Y-%m-%d %H:%M:%S %Z", "%Y-%m-%d %H:%M:%S"):
+            try:
+                return datetime.strptime(ts, fmt)
+            except Exception:
+                continue
+    return None
+
+
+def evaluate(bugs, commit_ids, commit_dates, tfidf_matrix, vectorizer, commit_boost, commit_files, ks=(1, 5, 10)):
     """Evaluate retrieval performance for the given bug reports.
 
     Parameters
@@ -73,10 +96,14 @@ def evaluate(bugs, commit_ids, tfidf_matrix, vectorizer, commit_boost, ks=(1, 5,
         Bug report objects loaded from ``bug_reports.json``.
     commit_ids : list[str]
         List of commit hashes corresponding to rows in ``tfidf_matrix``.
+    commit_dates : list[str]
+        Commit timestamp strings aligned with ``commit_ids``.
     tfidf_matrix : scipy.sparse.spmatrix
         TF-IDF matrix built from commit messages and diffs.
     vectorizer : TfidfVectorizer
         Fitted vectorizer used to create the matrix.
+    commit_files : dict[str, list[str]]
+        Mapping of commit id (or 7-char prefix) to changed file paths.
     ks : tuple[int]
         Cutoff values for TOP@K style metrics.
 
@@ -90,23 +117,46 @@ def evaluate(bugs, commit_ids, tfidf_matrix, vectorizer, commit_boost, ks=(1, 5,
     rr_list = []
     hit_dict = {k: [] for k in ks}
 
+    commit_times = [parse_time(ts) if ts else None for ts in commit_dates]
+
     for bug in bugs:
         bug_text = clean(bug["summary"] + " " + bug.get("description", ""))
         bug_text = emphasize_code_tokens(bug_text)
+
+        bug_time = None
+        for key in ("date", "created", "creation_time"):
+            if key in bug:
+                bug_time = parse_time(bug[key])
+                break
+
+        # filter commits by time if timestamp is available
+        valid_idx = list(range(len(commit_ids)))
+        if bug_time:
+            valid_idx = [i for i, t in enumerate(commit_times) if t and t <= bug_time]
+
+        if not valid_idx:
+            continue
+
+        sub_matrix = tfidf_matrix[valid_idx]
+        sub_ids = [commit_ids[i] for i in valid_idx]
+        sub_boost = np.array([commit_boost.get(cid, 1.0) for cid in sub_ids])
+
         query_vec = vectorizer.transform([bug_text])
-        scores = cosine_similarity(query_vec, tfidf_matrix).flatten()
-        # apply history boost
-        boost = np.array([commit_boost.get(cid, 1.0) for cid in commit_ids])
-        scores = scores * boost
+        scores = cosine_similarity(query_vec, sub_matrix).flatten()
+        scores = scores * sub_boost
         ranked = np.argsort(scores)[::-1]
 
-        # 正解コミットに該当するインデックスを取得
-        gold_set = set(fix[:7] for fix in bug["fixes"])
-        hit_rank = []
-        for rank, idx in enumerate(ranked):
-            commit_prefix = commit_ids[idx][:7]
-            if commit_prefix in gold_set:
-                hit_rank.append(rank)
+        gold_files = set()
+        for fix in bug.get("fixes", []):
+            for fp in commit_files.get(fix, []):
+                gold_files.add(fp)
+
+        ranked_files = []
+        for idx in ranked:
+            cid = sub_ids[idx]
+            ranked_files.extend(commit_files.get(cid, []))
+
+        hit_rank = [i for i, fp in enumerate(ranked_files) if fp in gold_files]
 
         # metrics per bug
         if hit_rank:
@@ -133,8 +183,8 @@ def evaluate(bugs, commit_ids, tfidf_matrix, vectorizer, commit_boost, ks=(1, 5,
     return result
 
 if __name__ == "__main__":
-    bugs, commit_ids, matrix, vectorizer, commit_boost = load_data()
-    result = evaluate(bugs, commit_ids, matrix, vectorizer, commit_boost, ks=(1, 5, 10))
+    bugs, commit_ids, dates, matrix, vectorizer, commit_boost, commit_files = load_data()
+    result = evaluate(bugs, commit_ids, dates, matrix, vectorizer, commit_boost, commit_files, ks=(1, 5, 10))
     print("\n=== Evaluation Result ===")
     for key, val in result.items():
         print(f"{key}: {val:.4f}")
