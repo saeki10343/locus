@@ -4,6 +4,8 @@ import os
 from git import Repo
 import json
 from tqdm import tqdm
+import re
+matches = re.findall(r'bug[\s#]?(\d{3,})', commit_message.lower())
 
 def extract_commits(repo_path, max_count=1000):
     repo = Repo(repo_path)
