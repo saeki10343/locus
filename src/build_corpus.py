@@ -6,6 +6,18 @@ import re
 from sklearn.feature_extraction.text import TfidfVectorizer
 from diff_features import extract_features_from_patch
 
+CODE_TOKEN_RE = re.compile(r'[A-Za-z_]*[A-Z_][A-Za-z0-9_]*')
+
+def emphasize_code_tokens(text: str, weight: int = 5) -> str:
+    tokens = text.split()
+    out = []
+    for t in tokens:
+        if CODE_TOKEN_RE.search(t):
+            out.extend([t] * weight)
+        else:
+            out.append(t)
+    return ' '.join(out)
+
 def clean_text(text):
     text = text.lower()
     text = re.sub(r'[^\w\s]', ' ', text)
@@ -20,12 +32,12 @@ def load_commit_corpus(filepath):
 
     for commit in commits:
         # message + hunk patch 全体を1つの document にする
-        full_text = commit['message']
+        full_text = emphasize_code_tokens(commit['message'])
         for diff in commit['diffs']:
             patch = diff['patch']
             full_text += ' ' + patch
-            # add extracted features from the patch
-            full_text += ' ' + extract_features_from_patch(patch)
+            # add extracted features from the patch with extra weight
+            full_text += ' ' + extract_features_from_patch(patch, weight=5)
         full_text = clean_text(full_text)
 
         documents.append(full_text)
