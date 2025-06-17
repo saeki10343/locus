@@ -2,6 +2,7 @@
 
 import json
 import os
+import re
 import sys
 
 import numpy as np
@@ -12,6 +13,37 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 # allow running the script directly without PYTHONPATH
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from build_corpus import load_commit_corpus, build_tfidf_matrix
+
+CODE_TOKEN_RE = re.compile(r'[A-Za-z_]*[A-Z_][A-Za-z0-9_]*')
+
+def emphasize_code_tokens(text: str, weight: int = 5) -> str:
+    tokens = text.split()
+    out = []
+    for t in tokens:
+        if CODE_TOKEN_RE.search(t):
+            out.extend([t] * weight)
+        else:
+            out.append(t)
+    return ' '.join(out)
+
+def load_commit_boost(path: str, beta: float = 0.1):
+    with open(path, 'r') as f:
+        feats = json.load(f)
+
+    file_freq = {}
+    for item in feats:
+        for fp in item.get('files', []):
+            file_freq[fp] = file_freq.get(fp, 0) + 1
+
+    commit_boost = {}
+    for item in feats:
+        freq = sum(file_freq.get(fp, 0) for fp in item.get('files', []))
+        commit_boost[item['commit_id']] = freq
+
+    max_freq = max(commit_boost.values()) if commit_boost else 1
+    for cid in commit_boost:
+        commit_boost[cid] = 1.0 + beta * (commit_boost[cid] / max_freq)
+    return commit_boost
 
 def clean(text):
     import re
@@ -28,9 +60,11 @@ def load_data():
     _, docs = load_commit_corpus("data/commits.json")
     _, vectorizer = build_tfidf_matrix(docs)
 
-    return bugs, commit_ids, matrix, vectorizer
+    commit_boost = load_commit_boost("data/commit_features.json")
 
-def evaluate(bugs, commit_ids, tfidf_matrix, vectorizer, ks=(1, 5, 10)):
+    return bugs, commit_ids, matrix, vectorizer, commit_boost
+
+def evaluate(bugs, commit_ids, tfidf_matrix, vectorizer, commit_boost, ks=(1, 5, 10)):
     """Evaluate retrieval performance for the given bug reports.
 
     Parameters
@@ -58,8 +92,12 @@ def evaluate(bugs, commit_ids, tfidf_matrix, vectorizer, ks=(1, 5, 10)):
 
     for bug in bugs:
         bug_text = clean(bug["summary"] + " " + bug.get("description", ""))
+        bug_text = emphasize_code_tokens(bug_text)
         query_vec = vectorizer.transform([bug_text])
         scores = cosine_similarity(query_vec, tfidf_matrix).flatten()
+        # apply history boost
+        boost = np.array([commit_boost.get(cid, 1.0) for cid in commit_ids])
+        scores = scores * boost
         ranked = np.argsort(scores)[::-1]
 
         # 正解コミットに該当するインデックスを取得
@@ -95,8 +133,8 @@ def evaluate(bugs, commit_ids, tfidf_matrix, vectorizer, ks=(1, 5, 10)):
     return result
 
 if __name__ == "__main__":
-    bugs, commit_ids, matrix, vectorizer = load_data()
-    result = evaluate(bugs, commit_ids, matrix, vectorizer, ks=(1, 5, 10))
+    bugs, commit_ids, matrix, vectorizer, commit_boost = load_data()
+    result = evaluate(bugs, commit_ids, matrix, vectorizer, commit_boost, ks=(1, 5, 10))
     print("\n=== Evaluation Result ===")
     for key, val in result.items():
         print(f"{key}: {val:.4f}")
