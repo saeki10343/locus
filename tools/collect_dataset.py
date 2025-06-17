@@ -17,10 +17,19 @@ def fetch_bug_report(bug_id: str) -> Dict:
     soup = BeautifulSoup(res.text, "html.parser")
     summary = soup.find("span", id="short_desc_nonedit_display")
     description = soup.find("pre", class_="bz_comment_text")
+
+    created = None
+    th = soup.find("th", string=re.compile("Reported"))
+    if th:
+        td = th.find_next("td")
+        if td:
+            created = td.text.strip().split(" by ")[0]
+
     return {
         "id": f"BUG-{bug_id}",
         "summary": summary.text.strip() if summary else "",
         "description": description.text.strip() if description else "",
+        "created": created,
     }
 
 
