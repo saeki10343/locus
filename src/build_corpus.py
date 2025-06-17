@@ -4,6 +4,7 @@ import json
 import os
 import re
 from sklearn.feature_extraction.text import TfidfVectorizer
+from diff_features import extract_features_from_patch
 
 def clean_text(text):
     text = text.lower()
@@ -21,7 +22,10 @@ def load_commit_corpus(filepath):
         # message + hunk patch 全体を1つの document にする
         full_text = commit['message']
         for diff in commit['diffs']:
-            full_text += ' ' + diff['patch']
+            patch = diff['patch']
+            full_text += ' ' + patch
+            # add extracted features from the patch
+            full_text += ' ' + extract_features_from_patch(patch)
         full_text = clean_text(full_text)
 
         documents.append(full_text)

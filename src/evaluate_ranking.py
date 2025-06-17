@@ -24,10 +24,31 @@ def load_data():
 
     return bugs, commit_ids, matrix, vectorizer
 
-def evaluate(bugs, commit_ids, tfidf_matrix, vectorizer, k=10):
+def evaluate(bugs, commit_ids, tfidf_matrix, vectorizer, ks=(1, 5, 10)):
+    """Evaluate retrieval performance for the given bug reports.
+
+    Parameters
+    ----------
+    bugs : list[dict]
+        Bug report objects loaded from ``bug_reports.json``.
+    commit_ids : list[str]
+        List of commit hashes corresponding to rows in ``tfidf_matrix``.
+    tfidf_matrix : scipy.sparse.spmatrix
+        TF-IDF matrix built from commit messages and diffs.
+    vectorizer : TfidfVectorizer
+        Fitted vectorizer used to create the matrix.
+    ks : tuple[int]
+        Cutoff values for TOP@K style metrics.
+
+    Returns
+    -------
+    dict
+        Mapping of metric name to score.
+    """
+
     ap_list = []
     rr_list = []
-    hitk_list = []
+    hit_dict = {k: [] for k in ks}
 
     for bug in bugs:
         bug_text = clean(bug["summary"] + " " + bug.get("description", ""))
@@ -43,29 +64,33 @@ def evaluate(bugs, commit_ids, tfidf_matrix, vectorizer, k=10):
             if commit_prefix in gold_set:
                 hit_rank.append(rank)
 
-        # 評価指標
+        # metrics per bug
         if hit_rank:
             ap = sum([(i + 1) / (r + 1) for i, r in enumerate(hit_rank)]) / len(hit_rank)
             rr = 1 / (hit_rank[0] + 1)
-            hitk = int(any(r < k for r in hit_rank))
         else:
             ap = 0.0
             rr = 0.0
-            hitk = 0
 
         ap_list.append(ap)
         rr_list.append(rr)
-        hitk_list.append(hitk)
 
-    return {
+        for k in ks:
+            hit_dict[k].append(int(any(r < k for r in hit_rank)))
+
+    result = {
         "MAP": np.mean(ap_list),
         "MRR": np.mean(rr_list),
-        f"Hit@{k}": np.mean(hitk_list)
     }
+
+    for k in ks:
+        result[f"TOP@{k}"] = np.mean(hit_dict[k])
+
+    return result
 
 if __name__ == "__main__":
     bugs, commit_ids, matrix, vectorizer = load_data()
-    result = evaluate(bugs, commit_ids, matrix, vectorizer, k=10)
+    result = evaluate(bugs, commit_ids, matrix, vectorizer, ks=(1, 5, 10))
     print("\n=== Evaluation Result ===")
     for key, val in result.items():
         print(f"{key}: {val:.4f}")
