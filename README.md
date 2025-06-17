@@ -27,7 +27,7 @@ This project aims to reproduce the evaluation of **Locus: Locating Bugs from Sof
    ```bash
    python tools/collect_dataset.py
    ```
-   The script scans commit messages for patterns like `Bug 12345` and fetches the corresponding report from Bugzilla. The resulting file `data/bug_reports.json` will contain the mapping used for evaluation.
+   The script scans commit messages for patterns like `Bug 12345` and fetches the corresponding report from Bugzilla. Each entry now includes a `report_time` field indicating when the bug was reported. The resulting file `data/bug_reports.json` will contain the mapping used for evaluation.
 
 Once the dataset is generated, rebuild the TF-IDF matrix and run evaluation:
 

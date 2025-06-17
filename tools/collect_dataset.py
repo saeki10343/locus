@@ -7,6 +7,7 @@ import git
 import requests
 from bs4 import BeautifulSoup
 from tqdm import tqdm
+from datetime import datetime
 
 
 def fetch_bug_report(bug_id: str) -> Dict:
@@ -17,10 +18,25 @@ def fetch_bug_report(bug_id: str) -> Dict:
     soup = BeautifulSoup(res.text, "html.parser")
     summary = soup.find("span", id="short_desc_nonedit_display")
     description = soup.find("pre", class_="bz_comment_text")
+
+    reported = None
+    th = soup.find("th", string=re.compile("Reported:"))
+    if th:
+        td = th.find_next_sibling("td")
+        if td:
+            m = re.search(r"(\d{4}-\d{2}-\d{2} \d{2}:\d{2})", td.text)
+            if m:
+                try:
+                    dt = datetime.strptime(m.group(1), "%Y-%m-%d %H:%M")
+                    reported = dt.isoformat() + "Z"
+                except Exception:
+                    reported = m.group(1)
+
     return {
         "id": f"BUG-{bug_id}",
         "summary": summary.text.strip() if summary else "",
         "description": description.text.strip() if description else "",
+        "report_time": reported,
     }
 
 
