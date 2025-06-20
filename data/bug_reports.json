@@ -1,1 +1,2229 @@
-[]
+[
+  {
+    "id": "BUG-57130",
+    "product": "Tomcat 8",
+    "version": "8.0.14",
+    "summary": "Allow digest.sh to accept password from a file or from stdin",
+    "description": "",
+    "created": "2014-10-22T13:03:07Z",
+    "fixes": [
+      "234ea47",
+      "85da6cd"
+    ]
+  },
+  {
+    "id": "BUG-56890",
+    "product": "Tomcat 8",
+    "version": "8.0.11",
+    "summary": "getRealPath returns null",
+    "description": "",
+    "created": "2014-08-26T23:29:41Z",
+    "fixes": [
+      "a3ec494"
+    ]
+  },
+  {
+    "id": "BUG-55559",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "UserDatabaseRealm enhacement: may use local JNDI",
+    "description": "",
+    "created": "2013-09-14T22:16:08Z",
+    "fixes": [
+      "7c50a4f"
+    ]
+  },
+  {
+    "id": "BUG-58577",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "JMX Proxy Servlet can't handle overloaded methods",
+    "description": "",
+    "created": "2015-11-03T12:44:35Z",
+    "fixes": [
+      "c56b8e9",
+      "e16472f"
+    ]
+  },
+  {
+    "id": "BUG-51497",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Use canonical IPv6 text representation in logs",
+    "description": "",
+    "created": "2011-07-11T17:51:03Z",
+    "fixes": [
+      "545cc20",
+      "3b17b66"
+    ]
+  },
+  {
+    "id": "BUG-57665",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "support x-forwarded-host",
+    "description": "",
+    "created": "2015-03-05T09:21:25Z",
+    "fixes": [
+      "3b17b66",
+      "f94e936"
+    ]
+  },
+  {
+    "id": "BUG-55969",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Security-related enhancements to the Windows Installer",
+    "description": "",
+    "created": "2014-01-07T17:58:54Z",
+    "fixes": [
+      "051f354"
+    ]
+  },
+  {
+    "id": "BUG-57287",
+    "product": "Tomcat 8",
+    "version": "8.0.15",
+    "summary": "Sort files listed by DefaultServlet",
+    "description": "",
+    "created": "2014-11-29T20:13:17Z",
+    "fixes": [
+      "58e53d7"
+    ]
+  },
+  {
+    "id": "BUG-57974",
+    "product": "Tomcat 8",
+    "version": "8.0.22",
+    "summary": "getOpenSessions() bug",
+    "description": "",
+    "created": "2015-05-29T11:26:59Z",
+    "fixes": [
+      "f6beac4"
+    ]
+  },
+  {
+    "id": "BUG-63026",
+    "product": "Tomcat 8",
+    "version": "8.0.33",
+    "summary": "JNDIRealm fails to authenticate user with 2 trailing spaces CN",
+    "description": "",
+    "created": "2018-12-20T18:06:06Z",
+    "fixes": [
+      "853499e",
+      "1bafc0d"
+    ]
+  },
+  {
+    "id": "BUG-53737",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Use ServletContext.getJspConfigDescriptor() in Jasper instead of XML-parsing of merged web.xml [PATCHES]",
+    "description": "",
+    "created": "2012-08-18T00:54:55Z",
+    "fixes": [
+      "ed06037",
+      "e97d1df",
+      "ff5d192"
+    ]
+  },
+  {
+    "id": "BUG-54741",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Add org.apache.catalina.startup.Tomcat#addWebapp(String, URL) method",
+    "description": "",
+    "created": "2013-03-22T00:37:38Z",
+    "fixes": [
+      "c01069c"
+    ]
+  },
+  {
+    "id": "BUG-62652",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "DBCP documentation to fix/clarify",
+    "description": "",
+    "created": "2018-08-24T07:18:47Z",
+    "fixes": [
+      "90302c9"
+    ]
+  },
+  {
+    "id": "BUG-62515",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Tomcat should perform a graceful shutdown",
+    "description": "",
+    "created": "2018-07-02T09:55:18Z",
+    "fixes": [
+      "1a1e1b3",
+      "3fa44b7"
+    ]
+  },
+  {
+    "id": "BUG-43925",
+    "product": "Tomcat 8",
+    "version": "8.0.9",
+    "summary": "org.apache.jasper.runtime.BodyContentImpl causing huge memory allocations",
+    "description": "",
+    "created": "2007-11-21T06:23:58Z",
+    "fixes": [
+      "e6f5a27",
+      "982f138",
+      "982f138",
+      "cddac72",
+      "7797376"
+    ]
+  },
+  {
+    "id": "BUG-47214",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Inner classes that are explicitly referenced - should not be anonymous",
+    "description": "",
+    "created": "2009-05-17T18:32:20Z",
+    "fixes": [
+      "6eebc81"
+    ]
+  },
+  {
+    "id": "BUG-57619",
+    "product": "Tomcat 8",
+    "version": "8.0.18",
+    "summary": "Memory consumption",
+    "description": "",
+    "created": "2015-02-23T09:29:12Z",
+    "fixes": [
+      "6eebc81",
+      "6ab09cb"
+    ]
+  },
+  {
+    "id": "BUG-61736",
+    "product": "Tomcat 8",
+    "version": "8.0.47",
+    "summary": "NIO BlockPoller may stay at events() method for too long time",
+    "description": "",
+    "created": "2017-11-08T12:21:28Z",
+    "fixes": [
+      "a688d66"
+    ]
+  },
+  {
+    "id": "BUG-60940",
+    "product": "Tomcat 8",
+    "version": "8.0.42",
+    "summary": "\"unpackWARs=false\" causes different behavior of classloader",
+    "description": "",
+    "created": "2017-03-30T05:34:08Z",
+    "fixes": [
+      "203fda6",
+      "ec1413b",
+      "e688cd0",
+      "d87be5f"
+    ]
+  },
+  {
+    "id": "BUG-61563",
+    "product": "Tomcat 8",
+    "version": "8.0.14",
+    "summary": "Typo for entry managerServlet.listed at org/apache/catalina/manager/LocalStrings_es.properties",
+    "description": "",
+    "created": "2017-09-25T14:55:50Z",
+    "fixes": [
+      "9026d82",
+      "9026d82",
+      "8fad8ff"
+    ]
+  },
+  {
+    "id": "BUG-60963",
+    "product": "Tomcat 8",
+    "version": "8.0.43",
+    "summary": "Optimize class loading for unpackWARs=false case",
+    "description": "",
+    "created": "2017-04-07T15:58:50Z",
+    "fixes": [
+      "d3cebdc"
+    ]
+  },
+  {
+    "id": "BUG-61183",
+    "product": "Tomcat 8",
+    "version": "8.0.33",
+    "summary": "Deadlock occurs while sending to a closing session",
+    "description": "",
+    "created": "2017-06-13T16:25:12Z",
+    "fixes": [
+      "2ef74e8"
+    ]
+  },
+  {
+    "id": "BUG-58624",
+    "product": "Tomcat 8",
+    "version": "8.0.24",
+    "summary": "Websocket send blocks indefinitely in FutureToSendHandler",
+    "description": "",
+    "created": "2015-11-18T12:16:29Z",
+    "fixes": [
+      "2ef74e8",
+      "0f2d9ff",
+      "1486950"
+    ]
+  },
+  {
+    "id": "BUG-61180",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Change log level of sessionIdGeneratorBase.createRandom to warn rather than info",
+    "description": "",
+    "created": "2017-06-12T19:19:44Z",
+    "fixes": [
+      "e02b058"
+    ]
+  },
+  {
+    "id": "BUG-61150",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "One of the session attributes on the [host-]manager application is disallowed by the Security Manager",
+    "description": "",
+    "created": "2017-06-02T18:50:40Z",
+    "fixes": [
+      "5af25f1"
+    ]
+  },
+  {
+    "id": "BUG-61065",
+    "product": "Tomcat 8",
+    "version": "8.0.17",
+    "summary": "ImportHandler is using the wrong key to cache resolved classes",
+    "description": "",
+    "created": "2017-05-03T16:05:07Z",
+    "fixes": [
+      "df01c5f",
+      "51f3a41"
+    ]
+  },
+  {
+    "id": "BUG-58178",
+    "product": "Tomcat 8",
+    "version": "8.0.23",
+    "summary": "Exception not passed to c:catch in custom jsp tag",
+    "description": "",
+    "created": "2015-07-24T10:00:56Z",
+    "fixes": [
+      "75cf3f8"
+    ]
+  },
+  {
+    "id": "BUG-60683",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Using the IBM JDK with the security manager results in a NullPointerException for requests to some JSPs",
+    "description": "",
+    "created": "2017-02-02T18:31:39Z",
+    "fixes": [
+      "4354ca4",
+      "232c11f",
+      "d28e47d",
+      "e9fcc8b"
+    ]
+  },
+  {
+    "id": "BUG-60513",
+    "product": "Tomcat 8",
+    "version": "8.0.30",
+    "summary": "RMI leak cleaning is not thread safe",
+    "description": "",
+    "created": "2016-12-22T20:24:31Z",
+    "fixes": [
+      "7077566"
+    ]
+  },
+  {
+    "id": "BUG-60437",
+    "product": "Tomcat 8",
+    "version": "8.0.38",
+    "summary": "SSL Handshake implementation in AsycnChannelWrapperSecure does not handle SSLEngineResult.Status.BUFFER_OVERFLOW state",
+    "description": "",
+    "created": "2016-12-01T12:08:46Z",
+    "fixes": [
+      "71ad331"
+    ]
+  },
+  {
+    "id": "BUG-60410",
+    "product": "Tomcat 8",
+    "version": "8.0.33",
+    "summary": "Stream closed when reading war entry",
+    "description": "",
+    "created": "2016-11-24T02:58:46Z",
+    "fixes": [
+      "fc2f3fe"
+    ]
+  },
+  {
+    "id": "BUG-60202",
+    "product": "Tomcat 8",
+    "version": "8.0.37",
+    "summary": "Failed LDAP connection triggers lockout realm",
+    "description": "",
+    "created": "2016-10-04T15:45:54Z",
+    "fixes": [
+      "6cacf93"
+    ]
+  },
+  {
+    "id": "BUG-60161",
+    "product": "Tomcat 8",
+    "version": "8.0.35",
+    "summary": "RewriteValve: Add more logging support similar to mod-rewrite",
+    "description": "",
+    "created": "2016-09-21T13:04:51Z",
+    "fixes": [
+      "1fceb34",
+      "da9b5df"
+    ]
+  },
+  {
+    "id": "BUG-60199",
+    "product": "Tomcat 8",
+    "version": "8.0.37",
+    "summary": "Improve error message if a session attribute could not load due to deserialization problems",
+    "description": "",
+    "created": "2016-10-04T09:27:33Z",
+    "fixes": [
+      "bb77506",
+      "3a0ce4b"
+    ]
+  },
+  {
+    "id": "BUG-60087",
+    "product": "Tomcat 8",
+    "version": "8.0.37",
+    "summary": "Bouncy Castle in WEB-INF/lib not working on Tomcat 8 when unpackWars=false",
+    "description": "",
+    "created": "2016-09-06T12:35:56Z",
+    "fixes": [
+      "935c245"
+    ]
+  },
+  {
+    "id": "BUG-60167",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "PasswdUserDatabase cannot parsing /etc/passwd with empty-line",
+    "description": "",
+    "created": "2016-09-23T08:50:04Z",
+    "fixes": [
+      "afe973c"
+    ]
+  },
+  {
+    "id": "BUG-60151",
+    "product": "Tomcat 8",
+    "version": "8.0.37",
+    "summary": "JNDI Datasource lookup failure - throws javax.naming.NamingException",
+    "description": "",
+    "created": "2016-09-19T19:33:47Z",
+    "fixes": [
+      "a163a7e"
+    ]
+  },
+  {
+    "id": "BUG-60013",
+    "product": "Tomcat 8",
+    "version": "8.0.35",
+    "summary": "Non-ASCII characters in querystring get mangled after URL Rewrite using RewriteValve",
+    "description": "",
+    "created": "2016-08-18T08:01:05Z",
+    "fixes": [
+      "4e6c1a2",
+      "e7be406"
+    ]
+  },
+  {
+    "id": "BUG-60032",
+    "product": "Tomcat 8",
+    "version": "8.0.33",
+    "summary": "EL function resolve varargs values but not send it to function call",
+    "description": "",
+    "created": "2016-08-23T09:54:12Z",
+    "fixes": [
+      "f97769f",
+      "12da786"
+    ]
+  },
+  {
+    "id": "BUG-60008",
+    "product": "Tomcat 8",
+    "version": "8.0.30",
+    "summary": "Tomcat CORS filter not allowing origin with file:// when resource access done from WebView",
+    "description": "",
+    "created": "2016-08-16T04:27:57Z",
+    "fixes": [
+      "f6e18b7",
+      "529cfdf"
+    ]
+  },
+  {
+    "id": "BUG-59862",
+    "product": "Tomcat 8",
+    "version": "8.0.36",
+    "summary": "Allow Nested Jar Scanning to be Filtered with System Property",
+    "description": "",
+    "created": "2016-07-15T07:53:10Z",
+    "fixes": [
+      "e954188",
+      "1abf60e",
+      "246fcc0"
+    ]
+  },
+  {
+    "id": "BUG-59908",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Tomcat reports empty(null) close reason if send operation timed out.",
+    "description": "",
+    "created": "2016-07-28T09:47:34Z",
+    "fixes": [
+      "bff2381"
+    ]
+  },
+  {
+    "id": "BUG-59912",
+    "product": "Tomcat 8",
+    "version": "8.0.33",
+    "summary": "CoyoteReader.readLine throws IO exception on multi line POST of exactly 8192 bytes",
+    "description": "",
+    "created": "2016-07-29T19:39:22Z",
+    "fixes": [
+      "023a3b5"
+    ]
+  },
+  {
+    "id": "BUG-59859",
+    "product": "Tomcat 8",
+    "version": "8.0.36",
+    "summary": "Tomcat WebDAV MOVE operation fails on Windows",
+    "description": "",
+    "created": "2016-07-14T19:21:27Z",
+    "fixes": [
+      "f8db078",
+      "ca1c5d5"
+    ]
+  },
+  {
+    "id": "BUG-59708",
+    "product": "Tomcat 8",
+    "version": "8.0.35",
+    "summary": "LockOutRealm Details",
+    "description": "",
+    "created": "2016-06-15T15:17:08Z",
+    "fixes": [
+      "e0a0874"
+    ]
+  },
+  {
+    "id": "BUG-59604",
+    "product": "Tomcat 8",
+    "version": "8.0.33",
+    "summary": "Invalid url-pattern in servlet mapping on s390x",
+    "description": "",
+    "created": "2016-05-20T00:54:22Z",
+    "fixes": [
+      "d2e596c"
+    ]
+  },
+  {
+    "id": "BUG-59608",
+    "product": "Tomcat 8",
+    "version": "8.0.35",
+    "summary": "Manifest scanning should handle errors in resolving entries",
+    "description": "",
+    "created": "2016-05-20T12:32:50Z",
+    "fixes": [
+      "d2e596c",
+      "62de06d"
+    ]
+  },
+  {
+    "id": "BUG-58750",
+    "product": "Tomcat 8",
+    "version": "8.0.30",
+    "summary": "Provide way to disable Server header completely",
+    "description": "",
+    "created": "2015-12-17T17:23:06Z",
+    "fixes": [
+      "796826c"
+    ]
+  },
+  {
+    "id": "BUG-59567",
+    "product": "Tomcat 8",
+    "version": "8.0.35",
+    "summary": "NPE in org.apache.jasper.servlet.TldScanner$TldScannerCallback.scanWebInfClasses",
+    "description": "",
+    "created": "2016-05-18T16:11:18Z",
+    "fixes": [
+      "1820dde",
+      "ddae860"
+    ]
+  },
+  {
+    "id": "BUG-59226",
+    "product": "Tomcat 8",
+    "version": "8.0.32",
+    "summary": "StandardJarScanner ignores jars in manifest Class-path header",
+    "description": "",
+    "created": "2016-03-23T23:33:44Z",
+    "fixes": [
+      "74d146c"
+    ]
+  },
+  {
+    "id": "BUG-59255",
+    "product": "Tomcat 8",
+    "version": "8.0.29",
+    "summary": "404 due to NullPointer in Mapper.java",
+    "description": "",
+    "created": "2016-03-31T11:11:06Z",
+    "fixes": [
+      "74d146c",
+      "a3b68b4",
+      "8d0e987",
+      "5205388",
+      "9677774"
+    ]
+  },
+  {
+    "id": "BUG-59295",
+    "product": "Tomcat 8",
+    "version": "8.0.28",
+    "summary": "Content-Language headers created by Response.setLocale do not fully represent the locale",
+    "description": "",
+    "created": "2016-04-08T22:39:41Z",
+    "fixes": [
+      "c9733b8",
+      "27e936e",
+      "103aae7"
+    ]
+  },
+  {
+    "id": "BUG-59317",
+    "product": "Tomcat 8",
+    "version": "8.0.33",
+    "summary": "AsyncContextImpl breaks request URL containing spaces",
+    "description": "",
+    "created": "2016-04-13T14:56:57Z",
+    "fixes": [
+      "efe4e55"
+    ]
+  },
+  {
+    "id": "BUG-59219",
+    "product": "Tomcat 8",
+    "version": "8.0.32",
+    "summary": "AsyncListener#onError not called on exception during async processing",
+    "description": "",
+    "created": "2016-03-23T13:15:48Z",
+    "fixes": [
+      "a3b68b4",
+      "8d0e987"
+    ]
+  },
+  {
+    "id": "BUG-59220",
+    "product": "Tomcat 8",
+    "version": "8.0.32",
+    "summary": "AsyncListener#onComplete not called after timeout if buffer is flushed",
+    "description": "",
+    "created": "2016-03-23T13:17:59Z",
+    "fixes": [
+      "a3b68b4"
+    ]
+  },
+  {
+    "id": "BUG-59289",
+    "product": "Tomcat 8",
+    "version": "8.0.33",
+    "summary": "Upgrade processor is put in recycledProcessors stack of Http11NioProtocol.Http11ConnectionHandler",
+    "description": "",
+    "created": "2016-04-08T14:23:10Z",
+    "fixes": [
+      "103aae7",
+      "9305b96"
+    ]
+  },
+  {
+    "id": "BUG-59261",
+    "product": "Tomcat 8",
+    "version": "8.0.33",
+    "summary": "Request getAsyncContext should throw IllegalStateException if async is not started",
+    "description": "",
+    "created": "2016-04-01T15:05:15Z",
+    "fixes": [
+      "00429f3"
+    ]
+  },
+  {
+    "id": "BUG-59247",
+    "product": "Tomcat 8",
+    "version": "8.0.32",
+    "summary": "Using the IBM JDK with the security manager results in java.lang.RuntimePermission warning",
+    "description": "",
+    "created": "2016-03-29T14:58:42Z",
+    "fixes": [
+      "033b1a3",
+      "58ccba7"
+    ]
+  },
+  {
+    "id": "BUG-59256",
+    "product": "Tomcat 8",
+    "version": "8.0.33",
+    "summary": "SLF4J in default jarsToSkip value in catalina.properties too broad",
+    "description": "",
+    "created": "2016-03-31T15:02:38Z",
+    "fixes": [
+      "f99624c",
+      "5205388"
+    ]
+  },
+  {
+    "id": "BUG-59213",
+    "product": "Tomcat 8",
+    "version": "8.0.32",
+    "summary": "Async dispatch not working after cross-context forward",
+    "description": "",
+    "created": "2016-03-22T10:11:02Z",
+    "fixes": [
+      "38cbbd9",
+      "3bd7ffa"
+    ]
+  },
+  {
+    "id": "BUG-59210",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Server push example failed in tomcat 8.5.0",
+    "description": "",
+    "created": "2016-03-22T06:40:11Z",
+    "fixes": [
+      "bced768"
+    ]
+  },
+  {
+    "id": "BUG-59209",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "java.lang.NoSuchMethodException: javax.net.ssl.SSLParameters.setUseCipherSuitesOrder during tomcat 8.5.0 start",
+    "description": "",
+    "created": "2016-03-22T06:07:19Z",
+    "fixes": [
+      "5e60f05"
+    ]
+  },
+  {
+    "id": "BUG-58867",
+    "product": "Tomcat 8",
+    "version": "8.0.30",
+    "summary": "Having a context.xml in conf prevents redeployment on startup",
+    "description": "",
+    "created": "2016-01-14T20:35:11Z",
+    "fixes": [
+      "0f2d9ff",
+      "0f2d9ff",
+      "b083576",
+      "5c34ae2"
+    ]
+  },
+  {
+    "id": "BUG-58999",
+    "product": "Tomcat 8",
+    "version": "8.0.32",
+    "summary": "StringIndexOutOfBoundsException WebAppClassLoaderBase.filter()",
+    "description": "",
+    "created": "2016-02-11T21:05:03Z",
+    "fixes": [
+      "0f2d9ff"
+    ]
+  },
+  {
+    "id": "BUG-57809",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Don't store merged web.xml",
+    "description": "",
+    "created": "2015-04-13T17:07:37Z",
+    "fixes": [
+      "0f2d9ff",
+      "77cfbcb"
+    ]
+  },
+  {
+    "id": "BUG-59043",
+    "product": "Tomcat 8",
+    "version": "8.0.32",
+    "summary": "SingleSignOn valve warns about missing session when invoking HttpServletRequest.logout",
+    "description": "",
+    "created": "2016-02-22T15:01:03Z",
+    "fixes": [
+      "0f2d9ff",
+      "b401d12"
+    ]
+  },
+  {
+    "id": "BUG-59065",
+    "product": "Tomcat 8",
+    "version": "8.0.32",
+    "summary": "catalina.sh should check for colon _after_ cygwin path sanitization",
+    "description": "",
+    "created": "2016-02-24T18:07:02Z",
+    "fixes": [
+      "0f2d9ff",
+      "b9f7f8f"
+    ]
+  },
+  {
+    "id": "BUG-59115",
+    "product": "Tomcat 8",
+    "version": "8.0.32",
+    "summary": "Part#getSubmittedFileName doesn't work corretly with double quotes in filenames.",
+    "description": "",
+    "created": "2016-03-04T10:43:23Z",
+    "fixes": [
+      "0f2d9ff",
+      "d0fc8ff"
+    ]
+  },
+  {
+    "id": "BUG-59151",
+    "product": "Tomcat 8",
+    "version": "8.0.30",
+    "summary": "IllegalArgumentException in org.apache.catalina.connector.Response.sendRedirect() when URI has blank spaces",
+    "description": "",
+    "created": "2016-03-09T11:36:54Z",
+    "fixes": [
+      "0f2d9ff",
+      "c85485c",
+      "20d2351"
+    ]
+  },
+  {
+    "id": "BUG-56917",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Create a configuration to write relative 302 responses instead of absolute",
+    "description": "",
+    "created": "2014-09-05T16:46:31Z",
+    "fixes": [
+      "0f2d9ff",
+      "0f2d9ff",
+      "0f2d9ff",
+      "c85485c",
+      "20d2351",
+      "17e58b4",
+      "17e58b4",
+      "e71821f"
+    ]
+  },
+  {
+    "id": "BUG-59154",
+    "product": "Tomcat 8",
+    "version": "8.0.32",
+    "summary": "JAASMemoryLoginModule: NullPointerException in MemoryRealm after upgrading to Tomcat 8.0.32 from 7.0.26",
+    "description": "",
+    "created": "2016-03-09T18:35:55Z",
+    "fixes": [
+      "0f2d9ff",
+      "2b1909b"
+    ]
+  },
+  {
+    "id": "BUG-59015",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Endless loop in APR poller during connector shutdown",
+    "description": "",
+    "created": "2016-02-16T18:49:42Z",
+    "fixes": [
+      "0f2d9ff",
+      "5d34303"
+    ]
+  },
+  {
+    "id": "BUG-59089",
+    "product": "Tomcat 8",
+    "version": "8.0.32",
+    "summary": "ArrayIndexOutOfBoundsException if header name contains byte values > 127",
+    "description": "",
+    "created": "2016-02-29T13:43:52Z",
+    "fixes": [
+      "0f2d9ff",
+      "8c7f8e8"
+    ]
+  },
+  {
+    "id": "BUG-57583",
+    "product": "Tomcat 8",
+    "version": "8.0.32",
+    "summary": "Performance issue evaluating EL in custom tags (tagx) due to inefficient calls to java.lang.Class.forName()",
+    "description": "",
+    "created": "2015-02-13T17:43:33Z",
+    "fixes": [
+      "0f2d9ff",
+      "ca10577"
+    ]
+  },
+  {
+    "id": "BUG-59119",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Improper forced reading causing client read timeout",
+    "description": "",
+    "created": "2016-03-04T19:38:12Z",
+    "fixes": [
+      "0f2d9ff",
+      "777ef9d",
+      "b1aa6de"
+    ]
+  },
+  {
+    "id": "BUG-59134",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Secure websocket connection through a proxy is not ok",
+    "description": "",
+    "created": "2016-03-07T08:29:21Z",
+    "fixes": [
+      "0f2d9ff",
+      "777ef9d"
+    ]
+  },
+  {
+    "id": "BUG-58283",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Change Base Path to use (user.home) instead of absolute path",
+    "description": "",
+    "created": "2015-08-25T22:07:28Z",
+    "fixes": [
+      "0f2d9ff",
+      "e3053cb"
+    ]
+  },
+  {
+    "id": "BUG-59031",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Tomcat 8 uninstaller entres a symbolic link and deletes its contents",
+    "description": "",
+    "created": "2016-02-19T07:45:44Z",
+    "fixes": [
+      "0f2d9ff",
+      "eadc38a"
+    ]
+  },
+  {
+    "id": "BUG-58946",
+    "product": "Tomcat 8",
+    "version": "8.0.30",
+    "summary": "ApplicationHttpRequest should enforce immutability of ParameterMap",
+    "description": "",
+    "created": "2016-01-30T12:05:04Z",
+    "fixes": [
+      "0f2d9ff",
+      "5f76838",
+      "bff4aa1",
+      "a4a2c75"
+    ]
+  },
+  {
+    "id": "BUG-58655",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "IllegalStateException: calling HttpServletResponse#sendRedirect() with RemoteIpFilter",
+    "description": "",
+    "created": "2015-11-26T11:52:10Z",
+    "fixes": [
+      "0f2d9ff",
+      "e71821f"
+    ]
+  },
+  {
+    "id": "BUG-58657",
+    "product": "Tomcat 8",
+    "version": "8.0.28",
+    "summary": "Spring DeferredResult errorResult response not returned in async servlet 3.1 mode",
+    "description": "",
+    "created": "2015-11-26T15:18:24Z",
+    "fixes": [
+      "0f2d9ff"
+    ]
+  },
+  {
+    "id": "BUG-58701",
+    "product": "Tomcat 8",
+    "version": "8.0.29",
+    "summary": "JSP Reloading Initialization Problem",
+    "description": "",
+    "created": "2015-12-07T23:27:58Z",
+    "fixes": [
+      "0f2d9ff",
+      "08a738c"
+    ]
+  },
+  {
+    "id": "BUG-58692",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Odd classpath URLs cause Tomcat to abort loading webapps",
+    "description": "",
+    "created": "2015-12-04T23:40:41Z",
+    "fixes": [
+      "0f2d9ff",
+      "83dc842"
+    ]
+  },
+  {
+    "id": "BUG-58702",
+    "product": "Tomcat 8",
+    "version": "8.0.30",
+    "summary": "Access log lines are not written if client aborts",
+    "description": "",
+    "created": "2015-12-08T03:13:08Z",
+    "fixes": [
+      "0f2d9ff",
+      "94d3193"
+    ]
+  },
+  {
+    "id": "BUG-58751",
+    "product": "Tomcat 8",
+    "version": "8.0.30",
+    "summary": "Strange behaviour after calling sendError when an async request times out",
+    "description": "",
+    "created": "2015-12-17T20:51:23Z",
+    "fixes": [
+      "0f2d9ff",
+      "8047f26"
+    ]
+  },
+  {
+    "id": "BUG-58836",
+    "product": "Tomcat 8",
+    "version": "8.0.28",
+    "summary": "Query string parameters w/o values are not sent to dest servlet via request.getRequestDispatcher().forward()",
+    "description": "",
+    "created": "2016-01-12T04:28:46Z",
+    "fixes": [
+      "0f2d9ff",
+      "e34290e",
+      "6911650",
+      "65be4fe"
+    ]
+  },
+  {
+    "id": "BUG-58900",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Infinite redeploy loop with undeployOldVersions=\"true\"",
+    "description": "",
+    "created": "2016-01-20T22:33:34Z",
+    "fixes": [
+      "0f2d9ff"
+    ]
+  },
+  {
+    "id": "BUG-55006",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Add http proxy support for ClientEndpoint using system properties [PATCH]",
+    "description": "",
+    "created": "2013-05-22T11:04:02Z",
+    "fixes": [
+      "0f2d9ff",
+      "0bfe355"
+    ]
+  },
+  {
+    "id": "BUG-57489",
+    "product": "Tomcat 8",
+    "version": "8.0.15",
+    "summary": "java.util.concurrent.ExecutionException: java.io.IOException: Key must be cancelled",
+    "description": "",
+    "created": "2015-01-23T22:54:04Z",
+    "fixes": [
+      "0f2d9ff"
+    ]
+  },
+  {
+    "id": "BUG-58723",
+    "product": "Tomcat 8",
+    "version": "8.0.27",
+    "summary": "Undeploy Versioned Context Fails",
+    "description": "",
+    "created": "2015-12-11T19:12:51Z",
+    "fixes": [
+      "0f2d9ff",
+      "b3db084"
+    ]
+  },
+  {
+    "id": "BUG-57141",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "JSP 2.3 & EL 3.0 Spec conflict w/Static Fields, Methods, etc.",
+    "description": "",
+    "created": "2014-10-24T21:39:18Z",
+    "fixes": [
+      "edbd96c"
+    ]
+  },
+  {
+    "id": "BUG-57155",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Allow Context without real docbase in embedded Tomcat",
+    "description": "",
+    "created": "2014-10-28T00:44:09Z",
+    "fixes": [
+      "5cfa526"
+    ]
+  },
+  {
+    "id": "BUG-57153",
+    "product": "Tomcat 8",
+    "version": "8.0.14",
+    "summary": "StandardJarScanner only searches WEB_INF/lib & classes rather than full classpath",
+    "description": "",
+    "created": "2014-10-27T17:08:08Z",
+    "fixes": [
+      "0837987"
+    ]
+  },
+  {
+    "id": "BUG-57132",
+    "product": "Tomcat 8",
+    "version": "8.0.14",
+    "summary": "ImportHandler.resolveClass() fails to report conflicting import when called repeatedly",
+    "description": "",
+    "created": "2014-10-22T21:56:39Z",
+    "fixes": [
+      "0460160",
+      "85eeb78"
+    ]
+  },
+  {
+    "id": "BUG-57091",
+    "product": "Tomcat 8",
+    "version": "8.0.14",
+    "summary": "Websockets cannot be used in Windows applet plugin environments based on Oracle Java7",
+    "description": "",
+    "created": "2014-10-14T13:27:57Z",
+    "fixes": [
+      "a3c30b4"
+    ]
+  },
+  {
+    "id": "BUG-57118",
+    "product": "Tomcat 8",
+    "version": "8.0.14",
+    "summary": "Throw EncodeException from RemoteEndpoint.Basic.sendObject()",
+    "description": "",
+    "created": "2014-10-19T18:34:48Z",
+    "fixes": [
+      "a3c30b4",
+      "70daeaa"
+    ]
+  },
+  {
+    "id": "BUG-57089",
+    "product": "Tomcat 8",
+    "version": "8.0.14",
+    "summary": "Configuration of <SessionIdGenerator> element is lost on reload",
+    "description": "",
+    "created": "2014-10-14T12:32:11Z",
+    "fixes": [
+      "c7fe65c",
+      "0b6b565"
+    ]
+  },
+  {
+    "id": "BUG-57105",
+    "product": "Tomcat 8",
+    "version": "8.0.14",
+    "summary": "<buffer> under <jsp-property-group>  in web.xml only accept integer which doesn't follow spec and cause jsp compile fail",
+    "description": "",
+    "created": "2014-10-17T09:10:24Z",
+    "fixes": [
+      "c7fe65c"
+    ]
+  },
+  {
+    "id": "BUG-57113",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "ImportHandler not returning class properly from resolveClass()",
+    "description": "",
+    "created": "2014-10-18T07:52:40Z",
+    "fixes": [
+      "e675167"
+    ]
+  },
+  {
+    "id": "BUG-55951",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "HTML5 specifies UTF-8 encoding for cookie values",
+    "description": "",
+    "created": "2014-01-04T21:34:01Z",
+    "fixes": [
+      "c1289c0",
+      "d69ef60",
+      "10d1d33"
+    ]
+  },
+  {
+    "id": "BUG-57079",
+    "product": "Tomcat 8",
+    "version": "8.0.14",
+    "summary": "Use Tomcat version number in jdbc-pool manifest when building it as part of Tomcat",
+    "description": "",
+    "created": "2014-10-13T13:10:32Z",
+    "fixes": [
+      "84ead7d"
+    ]
+  },
+  {
+    "id": "BUG-56079",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Digitally sign the Windows binaries",
+    "description": "",
+    "created": "2014-01-28T17:12:48Z",
+    "fixes": [
+      "138fd5c",
+      "715d83d",
+      "f9dfe8a",
+      "f9dfe8a",
+      "f61b7dd"
+    ]
+  },
+  {
+    "id": "BUG-55984",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Invalid V1 cookie generated if value contains separator and ALLOW_HTTP_SEPARATORS_IN_V0 is true",
+    "description": "",
+    "created": "2014-01-10T03:04:30Z",
+    "fixes": [
+      "10d1d33",
+      "e42ad32",
+      "6e8744c",
+      "ee5aa77",
+      "676f570",
+      "595ee32"
+    ]
+  },
+  {
+    "id": "BUG-56393",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Implement RFC6265 for Cookie parsing",
+    "description": "",
+    "created": "2014-04-11T15:37:21Z",
+    "fixes": [
+      "595ee32"
+    ]
+  },
+  {
+    "id": "BUG-57027",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "DigesterCredentialHandlerBase and HexUtils shall test for invalid hex characters",
+    "description": "",
+    "created": "2014-09-27T16:33:06Z",
+    "fixes": [
+      "c53f21c",
+      "872d28d"
+    ]
+  },
+  {
+    "id": "BUG-57038",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "codebase of a class in a jar (while loading it) is now associated with its own URL (jar:file://....../<jar_name>.jar/.../<classname>.class), instead of its JAR\u2019s URL",
+    "description": "",
+    "created": "2014-09-29T11:40:56Z",
+    "fixes": [
+      "0691a90",
+      "0691a90",
+      "872d28d",
+      "3013dd9"
+    ]
+  },
+  {
+    "id": "BUG-56401",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Log version information on startup",
+    "description": "",
+    "created": "2014-04-11T20:05:07Z",
+    "fixes": [
+      "6865861",
+      "9a28e2b",
+      "b9d9366",
+      "456ec79",
+      "456ec79",
+      "3a8978d"
+    ]
+  },
+  {
+    "id": "BUG-56530",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "WebappClassLoader.loadClass synchronization issue due to coarse lock at WebappClassLoader instance level instead of been by class name",
+    "description": "",
+    "created": "2014-05-15T16:38:31Z",
+    "fixes": [
+      "9a28e2b",
+      "b9d9366",
+      "456ec79",
+      "3a8978d",
+      "be19c3e"
+    ]
+  },
+  {
+    "id": "BUG-57004",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Get number of stuck threads from StuckThreadDetectionValve through jmx",
+    "description": "",
+    "created": "2014-09-22T20:59:14Z",
+    "fixes": [
+      "b1a8a1f"
+    ]
+  },
+  {
+    "id": "BUG-56982",
+    "product": "Tomcat 8",
+    "version": "8.0.12",
+    "summary": "Websocket session.getNegotiatedExtensions() always return an empty list whereas permessage-deflate enabled",
+    "description": "",
+    "created": "2014-09-14T14:29:40Z",
+    "fixes": [
+      "b2a4765",
+      "f92cf01"
+    ]
+  },
+  {
+    "id": "BUG-56991",
+    "product": "Tomcat 8",
+    "version": "8.0.12",
+    "summary": "Request attribute org.apache.catalina.jsp_file needs to be nulled out after single use",
+    "description": "",
+    "created": "2014-09-18T05:46:33Z",
+    "fixes": [
+      "7fdb3db"
+    ]
+  },
+  {
+    "id": "BUG-56907",
+    "product": "Tomcat 8",
+    "version": "8.0.11",
+    "summary": "Threads leak",
+    "description": "",
+    "created": "2014-09-02T07:40:48Z",
+    "fixes": [
+      "f92cf01",
+      "bfc820e",
+      "4b55e03"
+    ]
+  },
+  {
+    "id": "BUG-56938",
+    "product": "Tomcat 8",
+    "version": "8.0.12",
+    "summary": "Applications with uppercase context paths cannot be updated",
+    "description": "",
+    "created": "2014-09-09T17:06:40Z",
+    "fixes": [
+      "a44adda"
+    ]
+  },
+  {
+    "id": "BUG-56900",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Resource Leaks found by CID 45266 and 45249",
+    "description": "",
+    "created": "2014-08-30T13:38:41Z",
+    "fixes": [
+      "be19c3e"
+    ]
+  },
+  {
+    "id": "BUG-56908",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Resource Leaks found by CID 45133",
+    "description": "",
+    "created": "2014-09-03T19:46:23Z",
+    "fixes": [
+      "d13ff06"
+    ]
+  },
+  {
+    "id": "BUG-56905",
+    "product": "Tomcat 8",
+    "version": "8.0.11",
+    "summary": "\"Unable to destroy WebSocket thread group\" warning when reloading examples webapp",
+    "description": "",
+    "created": "2014-09-01T08:04:17Z",
+    "fixes": [
+      "bfc820e"
+    ]
+  },
+  {
+    "id": "BUG-56903",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Missing comma-Separator in StandardContexts getRessourceOnlyServlets - CID-45051",
+    "description": "",
+    "created": "2014-08-31T10:57:51Z",
+    "fixes": [
+      "627ed13"
+    ]
+  },
+  {
+    "id": "BUG-56902",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "DefaultServlet could leak resource in method copy - CID-45243",
+    "description": "",
+    "created": "2014-08-31T10:38:31Z",
+    "fixes": [
+      "786418f"
+    ]
+  },
+  {
+    "id": "BUG-56568",
+    "product": "Tomcat 8",
+    "version": "8.0.1",
+    "summary": "Incompatible change in \"JSPs only permit GET POST or HEAD\"",
+    "description": "",
+    "created": "2014-05-27T10:28:42Z",
+    "fixes": [
+      "a410f32",
+      "539c505",
+      "5ab9057"
+    ]
+  },
+  {
+    "id": "BUG-56882",
+    "product": "Tomcat 8",
+    "version": "8.0.11",
+    "summary": "\"HTTP Status 503 - Servlet jsp is currently unavailable\" after Context reload",
+    "description": "",
+    "created": "2014-08-22T21:14:41Z",
+    "fixes": [
+      "c5779b2"
+    ]
+  },
+  {
+    "id": "BUG-56323",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Include service .bat scripts with Microsoft Windows Installer package",
+    "description": "",
+    "created": "2014-03-27T16:10:33Z",
+    "fixes": [
+      "fc948a9"
+    ]
+  },
+  {
+    "id": "BUG-56840",
+    "product": "Tomcat 8",
+    "version": "8.0.9",
+    "summary": "RewriteValve in context.xml throws NullPointerException",
+    "description": "",
+    "created": "2014-08-12T13:12:01Z",
+    "fixes": [
+      "a393469",
+      "7eb2080"
+    ]
+  },
+  {
+    "id": "BUG-56810",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "ANT: test target fails",
+    "description": "",
+    "created": "2014-08-04T12:50:13Z",
+    "fixes": [
+      "c65a65c"
+    ]
+  },
+  {
+    "id": "BUG-56785",
+    "product": "Tomcat 8",
+    "version": "8.0.8",
+    "summary": "NullPointer in processAnnotationsFile during Application Startup",
+    "description": "",
+    "created": "2014-07-29T08:22:52Z",
+    "fixes": [
+      "be5ac8e",
+      "e113d60"
+    ]
+  },
+  {
+    "id": "BUG-56796",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Avoid sleep usage in  org.apache.tomcat.util.threads.ThreadPoolExecutor#contextStopping",
+    "description": "",
+    "created": "2014-07-31T12:10:19Z",
+    "fixes": [
+      "e113d60",
+      "b8846e1",
+      "2cadae2"
+    ]
+  },
+  {
+    "id": "BUG-56709",
+    "product": "Tomcat 8",
+    "version": "8.0.9",
+    "summary": "No TLD files message refers to invalid property DefaultJarScanner.jarsToSkip",
+    "description": "",
+    "created": "2014-07-10T20:14:46Z",
+    "fixes": [
+      "3f89add",
+      "f6dd736"
+    ]
+  },
+  {
+    "id": "BUG-56788",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Set Version information in uninstaller on Windows",
+    "description": "",
+    "created": "2014-07-29T13:28:36Z",
+    "fixes": [
+      "d3a7179"
+    ]
+  },
+  {
+    "id": "BUG-56724",
+    "product": "Tomcat 8",
+    "version": "8.0.9",
+    "summary": "Restart Container background thread if it died unexpectedly",
+    "description": "",
+    "created": "2014-07-15T12:29:23Z",
+    "fixes": [
+      "54ab535",
+      "f9a1309"
+    ]
+  },
+  {
+    "id": "BUG-56658",
+    "product": "Tomcat 8",
+    "version": "8.0.9",
+    "summary": "Concurrency issue with wrapper mappings in Mapper",
+    "description": "",
+    "created": "2014-06-22T16:59:35Z",
+    "fixes": [
+      "e808a00",
+      "c519af2",
+      "02eb86b"
+    ]
+  },
+  {
+    "id": "BUG-56704",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Support OpenSSL syntax for cipher suite in JSSE connectors",
+    "description": "",
+    "created": "2014-07-08T16:12:12Z",
+    "fixes": [
+      "277d521",
+      "534b050"
+    ]
+  },
+  {
+    "id": "BUG-56693",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "non-rfc conform delayed file operations with webdav",
+    "description": "",
+    "created": "2014-07-03T08:15:16Z",
+    "fixes": [
+      "72eddd7",
+      "7606b31",
+      "60768ec"
+    ]
+  },
+  {
+    "id": "BUG-56698",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Sessions will be backed up too often by PersistentManager",
+    "description": "",
+    "created": "2014-07-05T15:16:58Z",
+    "fixes": [
+      "1e14448"
+    ]
+  },
+  {
+    "id": "BUG-56652",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "EL defineFunction does not support method signatures with arrays as arguments",
+    "description": "",
+    "created": "2014-06-20T21:55:01Z",
+    "fixes": [
+      "dd8dd2e"
+    ]
+  },
+  {
+    "id": "BUG-56694",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "checkInterval attribute is not existant on StandardManager or embedded Stores of PersistentManager",
+    "description": "",
+    "created": "2014-07-03T19:38:47Z",
+    "fixes": [
+      "317297b"
+    ]
+  },
+  {
+    "id": "BUG-56666",
+    "product": "Tomcat 8",
+    "version": "8.0.8",
+    "summary": "Improve code that clears SSO cookie",
+    "description": "",
+    "created": "2014-06-24T14:03:26Z",
+    "fixes": [
+      "b845b71"
+    ]
+  },
+  {
+    "id": "BUG-56663",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Can not get all data from InputStream in onDataAvailable",
+    "description": "",
+    "created": "2014-06-24T09:45:02Z",
+    "fixes": [
+      "55460e2"
+    ]
+  },
+  {
+    "id": "BUG-56588",
+    "product": "Tomcat 8",
+    "version": "8.0.8",
+    "summary": "ApplicationListener#pluggabilityBlocked field is always \"false\" in Tomcat 8",
+    "description": "",
+    "created": "2014-06-04T12:46:07Z",
+    "fixes": [
+      "d09549d",
+      "d09549d",
+      "1fd0dd7",
+      "0462139",
+      "ac1833b",
+      "e6910c6"
+    ]
+  },
+  {
+    "id": "BUG-56638",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "EL defineFunction does not support empty function names",
+    "description": "",
+    "created": "2014-06-18T16:40:44Z",
+    "fixes": [
+      "a77e388"
+    ]
+  },
+  {
+    "id": "BUG-56636",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "EL defineFunction method signature parser fails to correctly match signatures to methods",
+    "description": "",
+    "created": "2014-06-17T19:25:28Z",
+    "fixes": [
+      "364a7b7"
+    ]
+  },
+  {
+    "id": "BUG-56620",
+    "product": "Tomcat 8",
+    "version": "8.0.8",
+    "summary": "Bogus access log entries with status 503 and date in year 1970 (the epoch) when pausing NIO connector",
+    "description": "",
+    "created": "2014-06-13T12:37:17Z",
+    "fixes": [
+      "12be927",
+      "4857cf5"
+    ]
+  },
+  {
+    "id": "BUG-56612",
+    "product": "Tomcat 8",
+    "version": "8.0.5",
+    "summary": "Jasper is not able to parse two consecutive escaped single quotes in EL",
+    "description": "",
+    "created": "2014-06-10T13:02:42Z",
+    "fixes": [
+      "41bc2f5",
+      "98dfa82"
+    ]
+  },
+  {
+    "id": "BUG-56600",
+    "product": "Tomcat 8",
+    "version": "8.0.8",
+    "summary": "Missing \"return\" statements in WebdavServlet.doPropfind()",
+    "description": "",
+    "created": "2014-06-06T16:14:38Z",
+    "fixes": [
+      "0530618",
+      "5bc5ffc"
+    ]
+  },
+  {
+    "id": "BUG-56581",
+    "product": "Tomcat 8",
+    "version": "8.0.8",
+    "summary": "When an error occurs on a long JSP page, do not loose last chunk of printed text",
+    "description": "",
+    "created": "2014-05-31T13:54:17Z",
+    "fixes": [
+      "539c505"
+    ]
+  },
+  {
+    "id": "BUG-56582",
+    "product": "Tomcat 8",
+    "version": "8.0.8",
+    "summary": "Use switch(enum) in implementations of ActionHook.action(ActionCode, ...)",
+    "description": "",
+    "created": "2014-06-01T23:59:27Z",
+    "fixes": [
+      "184890b",
+      "180cf34"
+    ]
+  },
+  {
+    "id": "BUG-55975",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Inconsistent escaping applied to V0 cookie values",
+    "description": "",
+    "created": "2014-01-08T04:18:10Z",
+    "fixes": [
+      "9ff2546",
+      "bc8e34d"
+    ]
+  },
+  {
+    "id": "BUG-56387",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Improve exceptions thrown by stopped WebappClassLoader (to help identify 'stopped state' as the cause of a NoClassDefFoundError)",
+    "description": "",
+    "created": "2014-04-11T07:59:51Z",
+    "fixes": [
+      "bc8e34d",
+      "a954b2f"
+    ]
+  },
+  {
+    "id": "BUG-56446",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Handling InvocationTargetException for PojoMessageHandlerWholeBase and PojoMessageHandlerPartialBase.onMessage()",
+    "description": "",
+    "created": "2014-04-23T02:11:22Z",
+    "fixes": [
+      "a8372df",
+      "cee6c9d"
+    ]
+  },
+  {
+    "id": "BUG-56399",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Re-factor request/response recycling so Coyote and Catalina objects are recycled simultaneously",
+    "description": "",
+    "created": "2014-04-11T20:01:25Z",
+    "fixes": [
+      "a954b2f",
+      "3318769",
+      "6faed04",
+      "6faed04",
+      "a47f029"
+    ]
+  },
+  {
+    "id": "BUG-56526",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "New option to interrupt stuck threads",
+    "description": "",
+    "created": "2014-05-14T21:20:39Z",
+    "fixes": [
+      "3318769",
+      "01ca4ee"
+    ]
+  },
+  {
+    "id": "BUG-56348",
+    "product": "Tomcat 8",
+    "version": "8.0.5",
+    "summary": "ReadListener reading stream on different thread very slow",
+    "description": "",
+    "created": "2014-04-04T14:10:57Z",
+    "fixes": [
+      "6faed04",
+      "a47f029",
+      "e1d2a57",
+      "520ecdc",
+      "dc8e10e"
+    ]
+  },
+  {
+    "id": "BUG-56522",
+    "product": "Tomcat 8",
+    "version": "8.0.5",
+    "summary": "jasper-el 8 does not comply to EL Spec 3.0 regarding null value handling",
+    "description": "",
+    "created": "2014-05-14T08:11:03Z",
+    "fixes": [
+      "12511c6",
+      "6ceedfb"
+    ]
+  },
+  {
+    "id": "BUG-56481",
+    "product": "Tomcat 8",
+    "version": "8.0.5",
+    "summary": "Cannot differentiate between the package name and class name in tomcat 8.0.5",
+    "description": "",
+    "created": "2014-05-02T11:15:53Z",
+    "fixes": [
+      "6378f3b",
+      "0d76493",
+      "402bdcb",
+      "6c2d384"
+    ]
+  },
+  {
+    "id": "BUG-56492",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Avoid eclipse debugger pausing on uncaught exceptions when tomcat renews its threads",
+    "description": "",
+    "created": "2014-05-05T21:10:01Z",
+    "fixes": [
+      "402bdcb"
+    ]
+  },
+  {
+    "id": "BUG-56320",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "DefaultServlet leaks file handles",
+    "description": "",
+    "created": "2014-03-27T08:44:50Z",
+    "fixes": [
+      "21bb74c",
+      "cdb78c6",
+      "6a28f00"
+    ]
+  },
+  {
+    "id": "BUG-56458",
+    "product": "Tomcat 8",
+    "version": "8.0.5",
+    "summary": "session.isSecure() returning false when using SSL/TLS",
+    "description": "",
+    "created": "2014-04-25T12:37:31Z",
+    "fixes": [
+      "d81d44e",
+      "946e845"
+    ]
+  },
+  {
+    "id": "BUG-56390",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Tomcat keeps jar files in <app>/WEB-INF/lib opened and app cannot be fully undeployed",
+    "description": "",
+    "created": "2014-04-11T13:04:03Z",
+    "fixes": [
+      "07c1a07",
+      "49451f4"
+    ]
+  },
+  {
+    "id": "BUG-56449",
+    "product": "Tomcat 8",
+    "version": "8.0.5",
+    "summary": "WebSocket session get closed if in onOpen will sendText (sync mode)",
+    "description": "",
+    "created": "2014-04-23T16:13:18Z",
+    "fixes": [
+      "70c173e"
+    ]
+  },
+  {
+    "id": "BUG-56336",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "IndexOutOfBoundsException in the AjpNio2Processor.output() method",
+    "description": "",
+    "created": "2014-04-01T19:32:35Z",
+    "fixes": [
+      "b8e7ebc",
+      "a70f690",
+      "f7cbccb"
+    ]
+  },
+  {
+    "id": "BUG-56327",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Adding non HTTP (e.g AJP) connector using MBeans is not possible",
+    "description": "",
+    "created": "2014-03-27T20:53:59Z",
+    "fixes": [
+      "7fcf4dd"
+    ]
+  },
+  {
+    "id": "BUG-56343",
+    "product": "Tomcat 8",
+    "version": "8.0.5",
+    "summary": "NPE in org.apache.tomcat.websocket.WsWebSocketContainer.connectToServer",
+    "description": "",
+    "created": "2014-04-03T07:41:19Z",
+    "fixes": [
+      "0e97403"
+    ]
+  },
+  {
+    "id": "BUG-56190",
+    "product": "Tomcat 8",
+    "version": "8.0.3",
+    "summary": "Connection keep-alive not working with asynchronous servlet",
+    "description": "",
+    "created": "2014-02-26T13:52:07Z",
+    "fixes": [
+      "e975722",
+      "e8c3d21"
+    ]
+  },
+  {
+    "id": "BUG-54475",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "SMAP broken in Java 8 for JSP compile",
+    "description": "",
+    "created": "2013-01-23T18:21:08Z",
+    "fixes": [
+      "d3cc5b5"
+    ]
+  },
+  {
+    "id": "BUG-56204",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "build target downloadgz-2 's dependence on target setproxy is redundant",
+    "description": "",
+    "created": "2014-03-02T02:52:44Z",
+    "fixes": [
+      "2d5d49e",
+      "4a9338a"
+    ]
+  },
+  {
+    "id": "BUG-56253",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "StringIndexOutOfBoundsException in AbstractArchiveResourceSet.list() method",
+    "description": "",
+    "created": "2014-03-12T23:46:45Z",
+    "fixes": [
+      "3f24ee8",
+      "71f5233"
+    ]
+  },
+  {
+    "id": "BUG-56244",
+    "product": "Tomcat 8",
+    "version": "8.0.3",
+    "summary": "8.0.3: In jmxproxy: javax.management.ReflectionException: Cannot find getter method getJarPath",
+    "description": "",
+    "created": "2014-03-11T10:15:19Z",
+    "fixes": [
+      "4c66084",
+      "48fab16"
+    ]
+  },
+  {
+    "id": "BUG-56125",
+    "product": "Tomcat 8",
+    "version": "8.0.0-RC10",
+    "summary": "RC10 8.0.1 Regression with Struts2",
+    "description": "",
+    "created": "2014-02-10T11:22:42Z",
+    "fixes": [
+      "de5fa65",
+      "6b94ee6"
+    ]
+  },
+  {
+    "id": "BUG-56199",
+    "product": "Tomcat 8",
+    "version": "8.0.3",
+    "summary": "Re-implement validateXml option in JspC of Tomcat 8, or remove it from documentation",
+    "description": "",
+    "created": "2014-02-27T23:38:29Z",
+    "fixes": [
+      "a2c94da",
+      "d21a21d"
+    ]
+  },
+  {
+    "id": "BUG-56223",
+    "product": "Tomcat 8",
+    "version": "8.0.3",
+    "summary": "ServletContext#setInitParameter(..) does not throw IllegalStateException after it's been initialized",
+    "description": "",
+    "created": "2014-03-06T02:15:48Z",
+    "fixes": [
+      "a2c94da"
+    ]
+  },
+  {
+    "id": "BUG-56179",
+    "product": "Tomcat 8",
+    "version": "8.0.3",
+    "summary": "ParseException for EL expression \"${((test == true))}\"",
+    "description": "",
+    "created": "2014-02-22T19:57:02Z",
+    "fixes": [
+      "e8da3b7",
+      "71a3527"
+    ]
+  },
+  {
+    "id": "BUG-56177",
+    "product": "Tomcat 8",
+    "version": "8.0.3",
+    "summary": "JSPC: NPE  at org.apache.jasper.servlet.JspCServletContext.getResource(JspCServletContext.java:344)",
+    "description": "",
+    "created": "2014-02-22T00:53:11Z",
+    "fixes": [
+      "e8da3b7"
+    ]
+  },
+  {
+    "id": "BUG-56172",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "AjpNioProtocol sometimes corrupts (ignores) the request body",
+    "description": "",
+    "created": "2014-02-21T09:53:40Z",
+    "fixes": [
+      "df9f662"
+    ]
+  },
+  {
+    "id": "BUG-56139",
+    "product": "Tomcat 8",
+    "version": "8.0.3",
+    "summary": "\"SeedGenerator Thread\" warnings when running tests on Windows",
+    "description": "",
+    "created": "2014-02-14T15:41:29Z",
+    "fixes": [
+      "339de33",
+      "eccf555"
+    ]
+  },
+  {
+    "id": "BUG-56104",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Provide new Icon for tomcat 8 and change installation welcome image",
+    "description": "",
+    "created": "2014-02-04T09:47:13Z",
+    "fixes": [
+      "3156b6e"
+    ]
+  },
+  {
+    "id": "BUG-56085",
+    "product": "Tomcat 8",
+    "version": "8.0.0-RC10",
+    "summary": "IllegalArgumentException is thrown when calling getServletContext().getRealPath(\"\\\\\")",
+    "description": "",
+    "created": "2014-01-29T07:43:57Z",
+    "fixes": [
+      "c043c74"
+    ]
+  },
+  {
+    "id": "BUG-55996",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Async context does not timeout with HTTP NIO connector",
+    "description": "",
+    "created": "2014-01-13T06:12:37Z",
+    "fixes": [
+      "2f8ff98"
+    ]
+  },
+  {
+    "id": "BUG-55917",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Cookie parsing fails hard with ISO-8859-1 values",
+    "description": "",
+    "created": "2013-12-20T20:22:13Z",
+    "fixes": [
+      "fcae5ca",
+      "2ce1faf"
+    ]
+  },
+  {
+    "id": "BUG-54095",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "[patch] support gzipped versions of static resources by DefaultServlet",
+    "description": "",
+    "created": "2012-11-03T20:49:45Z",
+    "fixes": [
+      "06d2bcb"
+    ]
+  },
+  {
+    "id": "BUG-54708",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Use base file name (\"ROOT\") as the work directory for the default webapp instead of \"_\"",
+    "description": "",
+    "created": "2013-03-15T22:22:13Z",
+    "fixes": [
+      "06d2bcb",
+      "f38bc72"
+    ]
+  },
+  {
+    "id": "BUG-55251",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "JspC fails silently if directory for generated web.xml does not exist",
+    "description": "",
+    "created": "2013-07-12T03:50:46Z",
+    "fixes": [
+      "e0ecb6c"
+    ]
+  },
+  {
+    "id": "BUG-46727",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "DefaultServlet - serving multiple encodings",
+    "description": "",
+    "created": "2009-02-17T15:01:26Z",
+    "fixes": [
+      "1340e60"
+    ]
+  },
+  {
+    "id": "BUG-52558",
+    "product": "Tomcat 8",
+    "version": "8.0.0-RC1",
+    "summary": "CometConnectionManagerValve is adding non-serializable Request[] to Session",
+    "description": "",
+    "created": "2012-01-30T10:46:47Z",
+    "fixes": [
+      "6d339ad"
+    ]
+  },
+  {
+    "id": "BUG-55372",
+    "product": "Tomcat 8",
+    "version": "8.0.0-RC1",
+    "summary": "Bind JPDA_ADDRESS by default to localhost",
+    "description": "",
+    "created": "2013-08-06T19:16:14Z",
+    "fixes": [
+      "131dd75"
+    ]
+  },
+  {
+    "id": "BUG-55101",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "BasicAuthenticator parser and associated unit tests",
+    "description": "",
+    "created": "2013-06-15T15:01:40Z",
+    "fixes": [
+      "1397c34",
+      "00869fc"
+    ]
+  },
+  {
+    "id": "BUG-55166",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "schemaLocation references between servlet and jsp XSDs are invalid",
+    "description": "",
+    "created": "2013-06-30T20:03:24Z",
+    "fixes": [
+      "1397c34",
+      "98d2904"
+    ]
+  },
+  {
+    "id": "BUG-54899",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Initial support for netbeans ide",
+    "description": "",
+    "created": "2013-04-28T14:17:47Z",
+    "fixes": [
+      "98d2904",
+      "79215de"
+    ]
+  },
+  {
+    "id": "BUG-54552",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Completed Servlet 3.1 spec for changeSessionId, HttpSessionIdListener",
+    "description": "",
+    "created": "2013-02-12T13:56:32Z",
+    "fixes": [
+      "bdae48e"
+    ]
+  },
+  {
+    "id": "BUG-54010",
+    "product": "Tomcat 8",
+    "version": "8.0.x-trunk",
+    "summary": "Suggestion for code improvement (avoiding potential bug)",
+    "description": "",
+    "created": "2012-10-16T02:20:47Z",
+    "fixes": [
+      "311ff05"
+    ]
+  }
+]
