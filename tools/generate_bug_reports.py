@@ -1,33 +1,33 @@
 import json
 import re
 import requests
-from bs4 import BeautifulSoup
+from tqdm import tqdm
 
-def fetch_bug_report(bug_id):
-    url = f"https://bugzilla.redhat.com/show_bug.cgi?id={bug_id}"
-    res = requests.get(url, timeout=5)
-    soup = BeautifulSoup(res.text, 'html.parser')
+def fetch_bug_report_rest(bug_id):
+    url = f"https://bz.apache.org/bugzilla/rest.cgi/bug/{bug_id}?Bugzilla_api_key={'azVGl7F6Kj4iw3xIn4DiMbtqYrfPfznyOTsF0BJW'}"
+    res = requests.get(url, timeout=10)
+    try:
+        data = res.json()
+    except json.JSONDecodeError:
+        raise Exception(f"Bug {bug_id} returned invalid JSON (status={res.status_code})")
 
-    status = soup.find("span", id="static_bug_status")
-    resolution = soup.find("td", id="resolution")
+    if "bugs" not in data or not data["bugs"]:
+        raise Exception(f"Bug {bug_id} not found")
 
-    if not status or not resolution:
-        raise ValueError("Status or Resolution not found")
-
-    status_text = status.text.strip().upper()
-    resolution_text = resolution.text.strip().upper()
-
-    # Only include fixed bugs
-    if not (status_text in {"RESOLVED", "CLOSED"} and resolution_text == "FIXED"):
-        raise ValueError(f"Bug {bug_id} is not fixed (Status: {status_text}, Resolution: {resolution_text})")
-
-    summary = soup.find("span", id="short_desc_nonedit_display")
-    description = soup.find("pre", class_="bz_comment_text")
+    bug = data["bugs"][0]
+    if bug["status"] != "RESOLVED" or bug.get("resolution") != "FIXED":
+        raise Exception(f"Bug {bug_id} is not RESOLVED FIXED")
+    if not bug["version"].startswith("8.0"):
+        raise Exception(f"Bug {bug_id} is not Tomcat verison 8.0")
 
     return {
         "id": f"BUG-{bug_id}",
-        "summary": summary.text.strip() if summary else "",
-        "description": description.text.strip() if description else ""
+        "product": bug["product"],
+        "version": bug["version"],
+        "summary": bug["summary"],
+        "description": "",  # Bugzilla REST API には description が含まれない
+        "created": bug.get("creation_time"),
+        "fixes": [],  # 後で付与
     }
 
 def collect_from_commit_log(commits_file):
@@ -52,14 +52,15 @@ if __name__ == "__main__":
     bug_map = collect_from_commit_log("data/commits.json")
 
     result = []
-    for bug_id, commit_ids in bug_map.items():
+    for bug_id, commit_ids in tqdm(bug_map.items(), desc="Fetching bugs"):
         try:
-            print(f"Fetching BUG-{bug_id}")
-            bug = fetch_bug_report(bug_id)
+            bug = fetch_bug_report_rest(bug_id)
             bug["fixes"] = [cid[:7] for cid in commit_ids]
             result.append(bug)
         except Exception as e:
-            print(f"Failed to fetch BUG-{bug_id}: {e}")
+            print(f"Skipped BUG-{bug_id}: {e}")
 
     with open("data/bug_reports.json", "w") as f:
         json.dump(result, f, indent=2)
+
+    print(f"\nSaved {len(result)} RESOLVED FIXED bugs to data/bug_reports.json")
