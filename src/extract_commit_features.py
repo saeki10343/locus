@@ -1,4 +1,5 @@
 # src/extract_commit_features.py
+# python src/extract_commit_features.py data/commits.json data/commit_features.json
 
 import json
 import os

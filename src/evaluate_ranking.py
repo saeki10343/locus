@@ -153,17 +153,17 @@ def evaluate(bugs, commit_ids, commit_dates, tfidf_matrix, vectorizer, commit_bo
         scores = scores * sub_boost
         ranked = np.argsort(scores)[::-1]
 
-        print(f"\nBugID: {bug.get('id')}")
-        print(f"  fixes: {bug.get('fixes', [])}")
-        print(f"  bug_time: {bug_time}")
-        print(f"  valid commit count: {len(valid_idx)}")
+        # print(f"\nBugID: {bug.get('id')}")
+        # print(f"  fixes: {bug.get('fixes', [])}")
+        # print(f"  bug_time: {bug_time}")
+        # print(f"  valid commit count: {len(valid_idx)}")
         # 修正ファイル（正解ファイル集合）を構築
         gold_files = set()
         for fix in bug.get("fixes", []):
             for fp in get_commit_files_by_prefix(commit_files, fix):
                 gold_files.add(fp)
 
-        print(f"  gold_files: {gold_files}")
+        # print(f"  gold_files: {gold_files}")
 
         # 検索結果として返されたファイル名一覧を構築
         ranked_files = []

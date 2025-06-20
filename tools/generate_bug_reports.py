@@ -4,9 +4,22 @@ import requests
 from bs4 import BeautifulSoup
 
 def fetch_bug_report(bug_id):
-    url = f"https://bz.apache.org/bugzilla/show_bug.cgi?id={bug_id}"
-    res = requests.get(url)
+    url = f"https://bugzilla.redhat.com/show_bug.cgi?id={bug_id}"
+    res = requests.get(url, timeout=5)
     soup = BeautifulSoup(res.text, 'html.parser')
+
+    status = soup.find("span", id="static_bug_status")
+    resolution = soup.find("td", id="resolution")
+
+    if not status or not resolution:
+        raise ValueError("Status or Resolution not found")
+
+    status_text = status.text.strip().upper()
+    resolution_text = resolution.text.strip().upper()
+
+    # Only include fixed bugs
+    if not (status_text in {"RESOLVED", "CLOSED"} and resolution_text == "FIXED"):
+        raise ValueError(f"Bug {bug_id} is not fixed (Status: {status_text}, Resolution: {resolution_text})")
 
     summary = soup.find("span", id="short_desc_nonedit_display")
     description = soup.find("pre", class_="bz_comment_text")
@@ -39,7 +52,7 @@ if __name__ == "__main__":
     bug_map = collect_from_commit_log("data/commits.json")
 
     result = []
-    for bug_id, commit_ids in list(bug_map.items())[:20]:
+    for bug_id, commit_ids in bug_map.items():
         try:
             print(f"Fetching BUG-{bug_id}")
             bug = fetch_bug_report(bug_id)
