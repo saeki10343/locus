@@ -1,4 +1,5 @@
 # python src/extract_commits.py ../tomcat data/commits.json --branch main
+# python src/extract_commits.py ../tomcat data/commits-8.5.x.json --branch 8.5.x
 import os
 import json
 import re
