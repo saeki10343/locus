@@ -11,4 +11,4 @@ __pycache__/
 
 # VSCode
 .vscode/
-tomcat/
+tomcat/data/commits-8.5.x.json
